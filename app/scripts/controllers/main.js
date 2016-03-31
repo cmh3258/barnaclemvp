@@ -8,7 +8,7 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('MainCtrl', function ($scope, AccountService) {
+  .controller('MainCtrl', function ($scope, AccountService, $location) {
 
     $scope.isLoggedIn = false;
 
@@ -22,7 +22,7 @@ angular.module('barnacleMvpApp')
         // loadingIndicator(false);
         if(response){
           $scope.$apply(function(){
-            // $location.path('/main');
+            $location.path('/profile');
           })
         }
         else{
@@ -37,7 +37,7 @@ angular.module('barnacleMvpApp')
         // loadingIndicator(false);
         if(response){
           $scope.$apply(function(){
-            // $location.path('/main');
+            $location.path('/profile');
           })
         }
         else{

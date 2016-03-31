@@ -28,6 +28,10 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -40,19 +44,21 @@ angular
 
       AccountService.userLoginStatus().then(function(response){
         console.log('userLoginStatus: ', response);
-        /*if(response === false || response.val() == null){
-          $location.path('/login');
+        if(response === false || response.val() == null){
+          $location.path('/main');
         }
         else{
-          var path = $location.url();
-          if(path === '/' || path === '/login' || path === '/postcomplete'){
-            $rootScope.$apply(function() {
-              // $location.path('/landing');
-              $location.path('/main/write');
-            })
-          }
-          console.log('can stay, we logged in.');
-        }*/
+          $location.path('/profile');
+
+          // var path = $location.url();
+          // if(path === '/' || path === '/login' || path === '/postcomplete'){
+          //   $rootScope.$apply(function() {
+          //     // $location.path('/landing');
+          //     $location.path('/main/write');
+          //   })
+          // }
+          // console.log('can stay, we logged in.');
+        }
       })
 
   });
