@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'firebase'
+    'firebase',
+    'oauthio'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -39,6 +40,8 @@ angular
 
 
   .run(function (AccountService, $location, $rootScope){
+
+      OAuth.initialize('inhBe05zh9VuRPBiHIzBEyBNY-M');
 
       console.log('run!', $location.path());
 

@@ -32,7 +32,14 @@ angular.module('barnacleMvpApp')
     }
 
     $scope.twitterLogin = function(){
-      // loadingIndicator(true);
+      OAuth.popup('twitter').done(function(result) {
+        console.log(result);
+        result.me().done(function(data) {
+          console.log('data: ', data);
+        })
+      })
+
+      /*// loadingIndicator(true);
       AccountService.loginTwitter().then(function(response){
         // loadingIndicator(false);
         if(response){
@@ -43,7 +50,7 @@ angular.module('barnacleMvpApp')
         else{
           alert('didnt log in!');
         }
-      })
+      })*/
     }
 
   });

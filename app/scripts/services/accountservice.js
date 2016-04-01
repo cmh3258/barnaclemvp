@@ -124,6 +124,7 @@ angular.module('barnacleMvpApp')
             console.log("Login Failed!", error);
           } else {
             console.log("Authenticated successfully with payload:", authData);
+            console.log(authData.twitter.id, authData.twitter.username, authData.twitter.displayName, authData.twitter.profileImageURL);
             var provider = authData.provider;
             userData = authData[provider];
 

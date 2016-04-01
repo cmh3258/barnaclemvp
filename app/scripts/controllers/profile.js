@@ -9,9 +9,21 @@
  */
 angular.module('barnacleMvpApp')
   .controller('ProfileCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    
+    //if already connected with X wont need to connect to it again! *******
+
+
+
+    function twitterConnect(){
+      //Example with Twitter with the cache option enabled
+      OAuth.popup('twitter', {cache: true}).done(function(twitter) {
+        //make API calls with `twitter`
+      }).fail(function(err) {
+        //todo when the OAuth flow failed
+      })
+    }
+
+    //instagram
+    
+
   });
