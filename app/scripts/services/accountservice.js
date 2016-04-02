@@ -10,7 +10,7 @@
 angular.module('barnacleMvpApp')
   .factory('AccountService', function ($q) {
     var ref = new Firebase("https://barnacle-mvp.firebaseio.com/");
-    var usersRef = ref.child("users");
+    var usersRef = ref.child("twitter");
     var userData = null;
     var loggedIn = false;
 

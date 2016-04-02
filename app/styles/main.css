@@ -20,3 +20,44 @@ body {
     .twitter-btn{
       background-color: #00aced;
     }
+
+
+/* profile */
+  #profile{
+    max-width: 1300px;
+    margin:0 auto;
+  }
+  #leftContent{
+    float: left;
+    width: 25%;
+    background-color: #e1e1e1;
+    padding: 1em;
+  }
+    #leftContent > div{
+      margin-bottom: 3em;
+    }
+    #leftContent h4,
+    #leftContent button,
+    #leftContent h5{
+      display: inline-block;
+      margin:0;
+    }
+    #leftContent button,
+    #leftContent h5{
+      float: right;
+    }
+    #leftContent h5{
+      color: #0AD60A;
+    }
+
+  #mainContent{
+    width: 65%;
+    margin-left: 2em;
+    display: inline-block;
+  }
+
+  #timelineHeader{
+    background-color: purple;
+    padding: 2em;
+  }
+

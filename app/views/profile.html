@@ -1,5 +1,36 @@
-<p>This is the profile view.</p>
 
-<button>connect wordpress</button>
-<button>connect twitter</button>
-<button>connect instagram</button>
+<main id="profile">
+
+  <div id="leftContent">
+    <div>
+      <h4>Wordpress</h4>
+      <button ng-if="!socialStatus.wordpress" ng-click="connectSocial('wordpress')">Connect</button>
+      <h5 ng-if="socialStatus.wordpress">Connected</h5>
+    </div>
+    <div>
+      <h4>Instagram</h4>
+      <button ng-if="!socialStatus.instagram" ng-click="connectSocial('instagram')">Connect</button>
+      <h5 ng-if="socialStatus.instagram">Connected</h5>
+    </div>
+    <div>
+      <h4>Twitter</h4>
+      <button ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
+      <h5 ng-if="socialStatus.twitter">Connected</h5>
+    </div>
+  </div>
+
+  <div id="mainContent">
+    <div id="timelineHeader">
+      <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
+    </div>
+    <h3>Timeline</h3>
+    <div ng-repeat="post in timeline | orderBy: '-created_at'">
+      <h3>{{post.text}}</h3>
+      <h4>{{post.created_at}}</h4>
+      <p>{{post.source}}</p>
+      <img ng-if="post.image" ng-src="{{post.image}}" />
+      <hr>
+    </div>
+  </div>
+
+</main>
