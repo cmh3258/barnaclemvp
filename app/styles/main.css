@@ -61,3 +61,33 @@ body {
     padding: 2em;
   }
 
+
+/* post */
+  .postContainer{
+    /*border-bottom: 1px solid black;*/
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+  }
+  .postContainer img{
+    width: 100%;
+  }
+  .tag{
+    display: inline-block;
+    color: gray;
+    margin-right: 8px;
+  }
+  .twitterContainer{
+    /*background-color: blue;*/
+    border:1px solid gray;
+    border-radius: 4px;
+    padding: 1em;
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+
+
+
+
+

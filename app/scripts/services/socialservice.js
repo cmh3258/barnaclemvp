@@ -59,7 +59,7 @@ angular.module('barnacleMvpApp')
           for(var i = 0; i < data.length; i++){
             var info = data[i];
             var image = '';
-            var hashtags = '';
+            var hashtags = [];
             if('entities' in info){
               if('media' in info.entities){
                 if(info.entities.media.length > 0){
@@ -70,12 +70,15 @@ angular.module('barnacleMvpApp')
                 hashtags = info.entities.hashtags;
               }
             }
+            var date = new Date(info.created_at);
             newResults.push({
               'source':'twitter',
               'text':info.text,
-              'created_at':info.created_at,
+              'title':null,
+              'created_at':date.toISOString(),
               'image':image,
-              'hashtags':hashtags
+              'hashtags':hashtags,
+              'isIncluded':true
             })
           }
 
@@ -88,15 +91,60 @@ angular.module('barnacleMvpApp')
     }
 
     function wordpressPosts(){
+      var deferred = $q.defer();
+
       // var promise = socialObjects.wordpress.get('/v1.1/sites/pondersimple/posts/').done(function(data) { 
         console.log(socialObjects.wordpress, socialObjects.wordpress.blog_id);
         var promise = socialObjects.wordpress.get('/rest/v1/me/').done(function(data) { 
           promise = socialObjects.wordpress.get('/rest/v1/sites/'+data.token_site_id+'/posts/').done(function(data) { 
 
-
+            var newResults = [];
             console.log('[wordpressPosts] data: ', data);
+            if('posts' in data){
+              var posts = data.posts;
+              for(var i = 0; i < posts.length; i++){
+                var post = posts[i];
+                var image = '';
+                var hashtags = [];
+                if('featured_image' in post){
+                  image = post.featured_image;
+                }
+                if('tags' in post){
+                  for(var key in post.tags){
+                    hashtags.push(key);
+                  }
+                }
+                // if('attachments' in post){
+                //   console.log('attachments: ', post.attachments);
+                //   //grab first image in attachments
+                //   for(var key in post.attachments){
+                //     image = post.attachments.key.URL;
+                //     break;
+                //   }
+                // }
+                newResults.push({
+                  'source':'wordpress',
+                  'text':post.content,
+                  'title':post.title,
+                  'created_at':post.date,
+                  'image':image,
+                  'hashtags':hashtags,
+                  'isIncluded':true
+                })
+              }
+
+              deferred.resolve(newResults);
+
+            }
+
+
+            deferred.resolve(null);
+
+
           })
         })
+
+      return deferred.promise;
 
       // console.log('tojson: ', socialObjects.wordpress.toJson());
 
@@ -143,14 +191,31 @@ angular.module('barnacleMvpApp')
         for (var key in socialObjects) {
           if(socialObjects[key]){
             if(key === 'twitter'){
-              // data = twitterTimeline();
+              data.push(twitterTimeline());
             }
             if(key === 'wordpress'){
-              data = wordpressPosts();
+              data.push(wordpressPosts());
             }
           }
         }
-        deferred.resolve(data);
+
+        $q.all(data)
+         .then(function (responses) {
+          console.log(responses);
+            for(var i = 0; i < responses.length; i++){
+              data = data.concat(responses[i]);
+            }
+            console.log('resolving: ', data);
+            deferred.resolve(data);
+         }).catch(function (data) {
+             // $scope.applications = null;
+             // $scope.environments = null;
+         })['finally'](function(){
+             // $scope.isBusy=false;
+         });
+
+        // console.log('resolve data: ', data);
+        // deferred.resolve(data);
 
         return deferred.promise;
       },
