@@ -17,6 +17,8 @@
       <button ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
       <h5 ng-if="socialStatus.twitter">Connected</h5>
     </div>
+
+    <button ng-click="disconnectSocial()">disconnect</button>
   </div>
 
   <div id="mainContent">

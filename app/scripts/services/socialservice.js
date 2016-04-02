@@ -17,17 +17,33 @@ angular.module('barnacleMvpApp')
     }
     
     function auth(socialsite){
+      var deferred = $q.defer();
+
       //Example with Twitter with the cache option enabled (pulls from auth from cache so can use api)
       console.log('[auth] socialsite: ', socialsite);
       OAuth.popup(socialsite, {cache: true}).done(function(response) {
         console.log('socialsite auth response: ', response);
+        
+        // response.me().done(function(data) {
+        //     // do something with `data`, e.g. print data.name
+        //     console.log('123data: ', data);
+        // })
+
+        // console.log(response.blog_id, response.blog_url);
         //make API calls with `twitter`
-        socialObjects.socialsite = response;
+        socialObjects[socialsite] = response;
+        deferred.resolve(socialObjects);
+
       }).fail(function(err) {
         //todo when the OAuth flow failed
-        alert('auth failed,');
+        alert('auth failed.');
         console.log('err: ', err);
+        deferred.resolve(socialObjects);
+
       })
+      
+      return deferred.promise;
+
     }
 
     function twitterTimeline(){
@@ -71,6 +87,21 @@ angular.module('barnacleMvpApp')
 
     }
 
+    function wordpressPosts(){
+      // var promise = socialObjects.wordpress.get('/v1.1/sites/pondersimple/posts/').done(function(data) { 
+        console.log(socialObjects.wordpress, socialObjects.wordpress.blog_id);
+        var promise = socialObjects.wordpress.get('/rest/v1/me/').done(function(data) { 
+          promise = socialObjects.wordpress.get('/rest/v1/sites/'+data.token_site_id+'/posts/').done(function(data) { 
+
+
+            console.log('[wordpressPosts] data: ', data);
+          })
+        })
+
+      // console.log('tojson: ', socialObjects.wordpress.toJson());
+
+    }
+
 
     // Public API here
     return {
@@ -97,7 +128,13 @@ angular.module('barnacleMvpApp')
         return socialObjects;
       },
       connectSocial: function(site){
-        auth(site);
+        var deferred = $q.defer();
+        auth(site).then(function(response){
+          console.log('connectSocial response: ', response);
+          deferred.resolve(response);
+        })
+
+        return deferred.promise;
       },
       loadTimeline: function(){
         var deferred = $q.defer();
@@ -106,13 +143,19 @@ angular.module('barnacleMvpApp')
         for (var key in socialObjects) {
           if(socialObjects[key]){
             if(key === 'twitter'){
-              data = twitterTimeline();
+              // data = twitterTimeline();
+            }
+            if(key === 'wordpress'){
+              data = wordpressPosts();
             }
           }
         }
         deferred.resolve(data);
 
         return deferred.promise;
+      },
+      disconnect: function(){
+        OAuth.clearCache();
       }
     };
   });

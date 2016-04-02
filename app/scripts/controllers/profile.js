@@ -30,7 +30,10 @@ angular.module('barnacleMvpApp')
 
 
     $scope.connectSocial = function(site){
-      SocialService.connectSocial(site);
+      SocialService.connectSocial(site).then(function(response){
+        console.log('frontent connectSocial: ', response);
+        $scope.socialStatus = response;
+      })
     };
 
 
@@ -58,7 +61,14 @@ angular.module('barnacleMvpApp')
     };
 
 
-    
+    $scope.disconnectSocial = function(){
+      SocialService.disconnect();
+      $scope.socialStatus = {
+        twitter: null,
+        instagram: null,
+        wordpress: null
+      }
+    }
 
     //instagram
     
