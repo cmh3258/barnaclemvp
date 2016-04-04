@@ -8,17 +8,23 @@
 </form> -->
 
 <h2>Login or sign up below</h2>
-<button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button>
-<button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button>
 
-{{isLoggedIn}}
-<div ng-if="!isLoggedIn">Not logged in</div>
-<div ng-if="isLoggedIn">Logged in! Welcome back.</div>
+
+<div ng-if="!isLoggedIn">
+  <p>Not logged in</p>
+  <button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button>
+  <button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button>
+  <button class="signin-btn" ng-click="guestLogin()">Use as Guest</button>
+</div>
+
+<div ng-if="isLoggedIn">
+  Logged in! Welcome back {{isLoggedIn.displayName}}. 
+  <button class="signin-btn" ng-click="logOut()">Log Out</button>
+  <button class="signin-btn" ng-click="logoutGuest()">guest? remove from memory</button>
+</div>
 
 <hr>
 
-<button class="signin-btn" ng-click="guestLogin()">Use as Guest</button>
-<button class="signin-btn" ng-click="logoutGuest()">remove guest account</button>
 
 
 <!-- <form ng-submit="signin()">

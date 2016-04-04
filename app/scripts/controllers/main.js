@@ -16,15 +16,18 @@ angular.module('barnacleMvpApp')
 
     function initial(){
       if($window.localStorage.getItem('guestAccount')){
-        $scope.isLoggedIn = 'guest account';
+          // $scope.$apply(function(){
+
+          $scope.isLoggedIn = {displayName:'Guest'};
+        // })
       }
       else{
         AccountService.userLoginStatus().then(function(response){
-          console.log('yes, logged in.');
+          console.log('yes, logged in. ', response.val().displayName);
           $scope.$apply(function(){
                  // $location.path('/profile');
-          $scope.isLoggedIn = response;
-                 
+          $scope.isLoggedIn = response.val();
+
                })
 
         })    
@@ -66,8 +69,13 @@ angular.module('barnacleMvpApp')
 
     $scope.guestLogin = function(){
       var path = AccountService.guestAccount();
-      console.log('[guestLogin] path: ', path.toString()); //save this to localStorage so user can access again later
-      $window.localStorage.setItem('guestAccount', path.toString());
+      try{
+        console.log('[guestLogin] path: ', path.toString()); //save this to localStorage so user can access again later
+        $window.localStorage.setItem('guestAccount', path.toString());
+      }
+      catch(e){
+        alert('issue using a guest account.');
+      }
     };
 
     $scope.logoutGuest = function(){
