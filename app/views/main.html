@@ -11,8 +11,15 @@
 <button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button>
 <button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button>
 
+{{isLoggedIn}}
 <div ng-if="!isLoggedIn">Not logged in</div>
 <div ng-if="isLoggedIn">Logged in! Welcome back.</div>
+
+<hr>
+
+<button class="signin-btn" ng-click="guestLogin()">Use as Guest</button>
+<button class="signin-btn" ng-click="logoutGuest()">remove guest account</button>
+
 
 <!-- <form ng-submit="signin()">
   <input placeholder="email" ng-model="email"/>

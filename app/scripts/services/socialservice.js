@@ -46,6 +46,22 @@ angular.module('barnacleMvpApp')
 
     }
 
+    function instagramPosts(){
+      //create a deferred object using Angular's $q service
+      var deferred = $q.defer();
+      var newResults = [];
+
+      var promise = socialObjects.instagram.get('/v1/users/self/media/recent/').done(function(data) { //https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+          //when the data is retrieved resolved the deferred object
+        console.log('[instagram] data: ', data);
+        deferred.resolve(data.data);
+
+      })
+
+      return deferred.promise;
+
+    }
+
     function twitterTimeline(){
       //create a deferred object using Angular's $q service
       var deferred = $q.defer();
@@ -78,7 +94,8 @@ angular.module('barnacleMvpApp')
               'created_at':date.toISOString(),
               'image':image,
               'hashtags':hashtags,
-              'isIncluded':true
+              'isIncluded':true,
+              'postType':'twitterContainer'
             })
           }
 
@@ -129,7 +146,8 @@ angular.module('barnacleMvpApp')
                   'created_at':post.date,
                   'image':image,
                   'hashtags':hashtags,
-                  'isIncluded':true
+                  'isIncluded':true,
+                  'postType':'wordpressContainer'
                 })
               }
 
@@ -178,7 +196,7 @@ angular.module('barnacleMvpApp')
       connectSocial: function(site){
         var deferred = $q.defer();
         auth(site).then(function(response){
-          console.log('connectSocial response: ', response);
+          // console.log('connectSocial response: ', response);
           deferred.resolve(response);
         })
 
@@ -196,12 +214,16 @@ angular.module('barnacleMvpApp')
             if(key === 'wordpress'){
               data.push(wordpressPosts());
             }
+            if(key === 'instagram'){
+              data.push(instagramPosts());
+            }
+
           }
         }
 
         $q.all(data)
          .then(function (responses) {
-          console.log(responses);
+          // console.log(responses);
             for(var i = 0; i < responses.length; i++){
               data = data.concat(responses[i]);
             }

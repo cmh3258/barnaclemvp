@@ -51,7 +51,7 @@ angular
           $location.path('/main');
         }
         else{
-          $location.path('/profile');
+          // $location.path('/profile');
 
           // var path = $location.url();
           // if(path === '/' || path === '/login' || path === '/postcomplete'){

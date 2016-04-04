@@ -97,6 +97,10 @@ angular.module('barnacleMvpApp')
       how to check if user already exists? .once()?
     */
 
+    // function tryThis (argument) {
+    //   console.log('try: ', argument);
+    // }
+
     // Public API here
     return {
       loginFacebook: function(){
@@ -136,6 +140,16 @@ angular.module('barnacleMvpApp')
             // return true;
           }
         });
+      },
+      guestAccount: function(){
+        var ref = new Firebase("https://barnacle-mvp.firebaseio.com/guestAccounts");
+
+        // var ref = ref.child("guestAccounts");
+        //creates a random id and then save to localStorage (?)
+        return ref.push();
+        // var path = newMessageRef.toString();
+        // console.log('opath: ', path);
+
       },
       logOut: function(){
         var v = ref.unauth();
