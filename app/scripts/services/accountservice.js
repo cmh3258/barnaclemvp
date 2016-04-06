@@ -36,7 +36,8 @@ angular.module('barnacleMvpApp')
           console.log('userData: ', userData);
           var email = 'email' in userData ? userData.email : null;
           var provider = 'provider' in userData ? userData.provider : 'twitter';
-          usersRef.child(userId).set({userId:userId, displayName:userData.displayName, email:email, provider:provider});
+          var profileImageURL = 'profileImageURL' in userData ? userData.profileImageURL : null;
+          usersRef.child(userId).set({userId:userId, displayName:userData.displayName, email:email, provider:provider, profileImageURL:profileImageURL});
           loggedIn = true;
           return true;
         }
@@ -156,6 +157,10 @@ angular.module('barnacleMvpApp')
         console.log('v: ', v);
         clearAccountInfo();
         return true;
+      },
+      unAuth: function(){
+        ref.unauth();
+        return;
       },
       userLoginStatus: function(){
         console.log('userLoginStatus');

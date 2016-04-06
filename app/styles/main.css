@@ -68,6 +68,8 @@ body {
     width: 80%;
     margin: 0 auto;
     margin-bottom: 2em;
+    position: relative;
+    min-height: 2em;
   }
   .postContainer img{
     width: 100%;
@@ -87,7 +89,44 @@ body {
     margin-bottom: 1em;
   }
 
+  .removePost{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .addPost{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .minimizedPost{
+    background-color: gray;
+    opacity: .4;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1px 19px;
+    background-color: #CACACA;
+    opacity: .4;
+    border-radius: 3px;
+  }
 
 
+/* profilePreviewContainer */
+  #profilePreviewContainer{
+    border: 2px solid black;
+    border-radius: 2px;
+    background-color: gray;
+    padding: 1em;
+  }
 
 
