@@ -8,7 +8,7 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('ProfileCtrl', function ($scope, SocialService) {
+  .controller('ProfileCtrl', function ($scope, $location, SocialService, ReviewService, AccountService) {
     
     //if already connected with X wont need to connect to it again! *******
 
@@ -19,6 +19,7 @@ angular.module('barnacleMvpApp')
     }
     $scope.hasOneConnected = false;
     $scope.timeline = [];
+    $scope.step = 1;
 
     initial();
 
@@ -59,6 +60,48 @@ angular.module('barnacleMvpApp')
         $scope.timeline = response;
       })
     };
+
+    $scope.saveTimeline = function(){
+      console.log('saving : ', $scope.timeline);
+      var posts = $scope.timeline;
+      var finalPosts = [];
+      for(var i=0; i < posts.length; i++){
+        if(posts[i].isIncluded){
+          finalPosts.push(posts[i]);
+        }
+      }
+
+      console.log('saving final posts: ', finalPosts);
+      var token = ReviewService.saveReview({'title':'Testing Save Review', 'text':'Here is some text for this fake review.'});
+      if(token){
+        console.log('saved revievw! : ', token);
+        AccountService.updateUserReviews(token).then(function(response){
+          console.log('hi: ', response);          
+          if(response){
+            alert('success');
+            $location.path('/writeupdate');
+          }
+          else{
+            alert('couldnt save your review');
+          }
+        })
+      }
+      else{
+        console.log('BAD saved revievw: ', token);
+      }
+    }
+
+
+    $scope.canSave = function(){
+      var posts = $scope.timeline;
+      for(var i=0; i < posts.length; i++){
+        if(posts[i].isIncluded){
+          return true;
+        }
+      }
+
+      return false;
+    }
 
 
     $scope.disconnectSocial = function(){

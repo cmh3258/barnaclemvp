@@ -102,6 +102,16 @@ angular.module('barnacleMvpApp')
     //   console.log('try: ', argument);
     // }
 
+    function onCompleteUserReviewUpdate(error){
+      if (error) {
+        console.log('Synchronization failed');
+        successfulUserReviewUpdate = 'Synchronization failed';
+      } else {
+        console.log('Synchronization succeeded');
+        successfulUserReviewUpdate = 'Synchronization succeeded';
+      }
+    };
+
     // Public API here
     return {
       loginFacebook: function(){
@@ -195,6 +205,29 @@ angular.module('barnacleMvpApp')
         // console.log('currentTags: ', currentTags);
         // otherTags.pus
         usersRef.child(userData.userId).update({tags:currentTags});
+      },
+      updateUserReviews: function(reviewId){
+        var defer = $q.defer();
+        if(reviewId !== null){
+          usersRef.child(userData.userId).update({reviews:[reviewId]}, function(error){
+            // console.log('made it');
+            if (error) {
+              console.log('Synchronization failed');
+              // successfulUserReviewUpdate = 'Synchronization failed';
+              defer.resolve(false);
+            } else {
+              console.log('Synchronization succeeded');
+              // successfulUserReviewUpdate = 'Synchronization succeeded';
+              defer.resolve(true);
+            }
+          });
+        }
+        else{
+          defer.resolve(false);
+        }
+
+        return defer.promise;
+
       }
     };
   });

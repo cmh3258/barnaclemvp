@@ -114,10 +114,13 @@ body {
     opacity: .4;
     width: 80%;
     margin: 0 auto;
-    padding: 1px 19px;
+    padding: 0px 19px;
     background-color: #CACACA;
     opacity: .4;
     border-radius: 3px;
+  }
+  .minimizedPost > p{
+    padding: 6px;
   }
 
 

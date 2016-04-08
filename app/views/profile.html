@@ -22,26 +22,38 @@
   </div>
 
   <div id="mainContent">
-    <div id="timelineHeader">
-      <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
+    <button ng-click="step = 1">Load Timeline</button>
+    <button ng-click="step = 2">View Reviews</button>
+    <!-- <button ng-click="step = 3">Load Timeline</button> -->
+
+
+    <div ng-if="step == 2">
+      <h3>coming soon...</h3>
     </div>
-    <h3>Timeline</h3>
-    <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
-      <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
-        <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
-        <h3 ng-bind-html="post.text"></h3>
-        <h4>{{post.created_at}}</h4>
-        <p>{{post.source}}</p>
-        <img ng-if="post.image" ng-src="{{post.image}}" />
-        <p ng-repeat="tag in post.hashtags" class="tag">#{{tag}}</p>
+    <div ng-if="step == 1">
+      <div id="timelineHeader">
+        <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
+        <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()">Save Timeline</button>
       </div>
-      <div ng-class="!post.isIncluded? 'minimizedPost':''" ng-if="!post.isIncluded">
-        <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
-        <p>hidden</p>
+      <h3>Timeline</h3>
+      <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
+        <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
+          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
+          <h3 ng-bind-html="post.text"></h3>
+          <h4>{{post.created_at}}</h4>
+          <p>{{post.source}}</p>
+          <img ng-if="post.image" ng-src="{{post.image}}" />
+          <p ng-repeat="tag in post.hashtags" class="tag">#{{tag}}</p>
+        </div>
+        <div ng-class="!post.isIncluded? 'minimizedPost':''" ng-if="!post.isIncluded">
+          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
+          <p>hidden</p>
+        </div>
+        <span ng-if="post.isIncluded" ng-click="post.isIncluded = false" class="removePost"></span>
+        <span ng-if="!post.isIncluded" ng-click="post.isIncluded = true" class="addPost"></span>
       </div>
-      <span ng-if="post.isIncluded" ng-click="post.isIncluded = false" class="removePost"></span>
-      <span ng-if="!post.isIncluded" ng-click="post.isIncluded = true" class="addPost"></span>
     </div>
   </div>
 
 </main>
+

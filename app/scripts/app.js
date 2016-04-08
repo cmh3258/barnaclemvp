@@ -33,6 +33,10 @@ angular
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl'
       })
+      .when('/writeupdate', {
+        templateUrl: 'views/writeupdate.html',
+        controller: 'WriteupdateCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
