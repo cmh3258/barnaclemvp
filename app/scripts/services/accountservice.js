@@ -8,11 +8,12 @@
  * Factory in the barnacleMvpApp.
  */
 angular.module('barnacleMvpApp')
-  .factory('AccountService', function ($q) {
+  .factory('AccountService', function ($q, $window) {
     var ref = new Firebase("https://barnacle-mvp.firebaseio.com/");
     var usersRef = ref.child("twitter");
     var userData = null;
     var loggedIn = false;
+    // var guest
 
     function clearAccountInfo(){
       loggedIn = false;
@@ -153,6 +154,8 @@ angular.module('barnacleMvpApp')
         });
       },
       guestAccount: function(){
+
+        // if()
         var ref = new Firebase("https://barnacle-mvp.firebaseio.com/guestAccounts");
 
         // var ref = ref.child("guestAccounts");
@@ -192,7 +195,24 @@ angular.module('barnacleMvpApp')
         // return loggedIn;
       },
       getUserInfo: function(){
-        return userData;
+        var defer = $q.defer();
+        if($window.localStorage.getItem('guestAccount')){
+          var r = new Firebase($window.localStorage.getItem('guestAccount'));
+          r.once('value', function(snapshot) {
+            console.log('getUserInfo: ', snapshot.val());
+            defer.resolve(snapshot.val());
+          })
+        }
+        else if(userData !== null){
+          usersRef.child(userData.userId).once('value', function(snapshot) {
+            var us = snapshot.val();
+            defer.resolve(us);
+          })
+        }
+        else{
+          defer.resolve(null);
+        }
+        return defer.promise;
       },
       updateUserTags: function(tags){
         console.log('adding tags to user profile: ', tags);
@@ -209,18 +229,63 @@ angular.module('barnacleMvpApp')
       updateUserReviews: function(reviewId){
         var defer = $q.defer();
         if(reviewId !== null){
-          usersRef.child(userData.userId).update({reviews:[reviewId]}, function(error){
-            // console.log('made it');
-            if (error) {
-              console.log('Synchronization failed');
-              // successfulUserReviewUpdate = 'Synchronization failed';
-              defer.resolve(false);
-            } else {
-              console.log('Synchronization succeeded');
-              // successfulUserReviewUpdate = 'Synchronization succeeded';
-              defer.resolve(true);
-            }
-          });
+
+          //check for a guest account
+          if($window.localStorage.getItem('guestAccount')){
+            var r = new Firebase($window.localStorage.getItem('guestAccount'));
+
+            r.once('value', function(snapshot) {
+              var us = snapshot.val();
+              var reviews = [];
+              try{
+                reviews = us.reviews;
+                reviews.push(reviewId);
+              }
+              catch(e){
+                reviews = [reviewId]
+              }
+
+              r.update({reviews:reviews}, function(error){
+                if (error) {
+                  console.log('[updateUserReviews] GUEST Synchronization failed');
+                  // successfulUserReviewUpdate = 'Synchronization failed';
+                  defer.resolve(false);
+                } else {
+                  console.log('[updateUserReviews] GUEST Synchronization succeeded');
+                  // successfulUserReviewUpdate = 'Synchronization succeeded';
+                  defer.resolve(true);
+                }
+              })
+            })
+          }
+          else{
+            usersRef.child(userData.userId).once('value', function(snapshot) {
+              var us = snapshot.val();
+              var reviews = [];
+              try{
+                reviews = us.reviews;
+                reviews.push(reviewId);
+              }
+              catch(e){
+                reviews = [reviewId]
+              }
+
+              usersRef.child(userData.userId).update({reviews:reviews}, function(error){
+                // console.log('made it');
+                if (error) {
+                  console.log('[updateUserReviews] Synchronization failed');
+                  // successfulUserReviewUpdate = 'Synchronization failed';
+                  defer.resolve(false);
+                } else {
+                  console.log('[updateUserReviews] Synchronization succeeded');
+                  // successfulUserReviewUpdate = 'Synchronization succeeded';
+                  defer.resolve(true);
+                }
+              });
+            })
+
+            
+          }
         }
         else{
           defer.resolve(false);

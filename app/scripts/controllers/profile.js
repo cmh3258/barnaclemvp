@@ -20,12 +20,17 @@ angular.module('barnacleMvpApp')
     $scope.hasOneConnected = false;
     $scope.timeline = [];
     $scope.step = 1;
+    $scope.userData = null;
 
     initial();
 
     function initial(){
       
       $scope.socialStatus = SocialService.checkSocialStatus();
+      AccountService.getUserInfo().then(function(response){
+        console.log('updated user info: ', response);
+        $scope.userData = response;
+      });
 
     }
 

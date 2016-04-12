@@ -71,15 +71,15 @@ angular.module('barnacleMvpApp')
       // loadingIndicator(true);
       AccountService.loginTwitter().then(function(response){
         // loadingIndicator(false);
-        console.log('[twitterLogin] response: ', response);
+        console.log('[twitterLogin] response: ', response, response.val());
         if(response){
           if(!$scope.$$phase) {
             $scope.$apply(function(){
-              $scope.isLoggedIn = response.val();
+              $scope.isLoggedIn = response;//response.val();
             })
           }
           else{
-            $scope.isLoggedIn = response.val();
+            $scope.isLoggedIn = response;//response.val();
           }
         }
 

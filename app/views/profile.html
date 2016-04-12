@@ -27,11 +27,13 @@
     <!-- <button ng-click="step = 3">Load Timeline</button> -->
 
 
-    <div ng-if="step == 2">
+    <div ng-if="step == 2" id="previewReviews">
       <h3>coming soon...</h3>
+      <div ng-repeat="rev in userData.reviews">{{rev}}</div>
     </div>
     <div ng-if="step == 1">
       <div id="timelineHeader">
+        <button ng-if="!hasOneConnected()">Must be connected to one service</button>
         <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
         <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()">Save Timeline</button>
       </div>

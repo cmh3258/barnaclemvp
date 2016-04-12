@@ -37,6 +37,10 @@ angular
         templateUrl: 'views/writeupdate.html',
         controller: 'WriteupdateCtrl'
       })
+      .when('/book', {
+        templateUrl: 'views/book.html',
+        controller: 'BookCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

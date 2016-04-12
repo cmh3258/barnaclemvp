@@ -60,6 +60,12 @@ body {
     background-color: purple;
     padding: 2em;
   }
+  
+  #previewReviews > div{
+    padding: 10px;
+    background: gray;
+    margin-bottom: 3px;
+  }
 
 
 /* post */

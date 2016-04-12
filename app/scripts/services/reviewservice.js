@@ -8,24 +8,32 @@
  * Factory in the barnacleMvpApp.
  */
 angular.module('barnacleMvpApp')
-  .factory('ReviewService', function ($q) {
+  .factory('ReviewService', function ($q, $window) {
     // Service logic
     // ...
 
     var currentToken = null;
-
+    var review 
     var reviewRef = new Firebase("https://barnacle-mvp.firebaseio.com/reviews");
+
+    initial();
+
+    function initial(){
+      if($window.localStorage.getItem('currentPostToken')){
+        currentToken = $window.localStorage.getItem('currentPostToken');
+      }
+    }
 
 
     // Public API here
     return {
       saveReview: function (review) {
-
         if(review !== null && review.length !== 0){
           var date = new Date();
           var finalReview = {posts: review, text: '', date:date.toISOString()}
           var reviewId = reviewRef.push(finalReview);
           currentToken = reviewId.name(); //take this token and save to the user object
+          $window.localStorage.setItem('currentPostToken', currentToken);
           return currentToken;
         }
         else{
@@ -51,6 +59,21 @@ angular.module('barnacleMvpApp')
             }
           });
         })
+
+        return defer.promise;
+      },
+      viewCurrentReview: function(){
+        var defer = $q.defer();
+        if(currentToken === null){
+          defer.resolve(false);
+        }
+        else{
+          var reviewRef = new Firebase("https://barnacle-mvp.firebaseio.com/reviews/"+currentToken);
+          reviewRef.once("value", function(snapshot) {
+            var review = snapshot.val();
+            defer.resolve(review);
+          })
+        }
 
         return defer.promise;
       }

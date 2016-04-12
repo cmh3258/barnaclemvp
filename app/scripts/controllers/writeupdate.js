@@ -15,7 +15,7 @@ angular.module('barnacleMvpApp')
         console.log('finishedWriting response: ', response);
         if(response){
           alert('success');
-          // $location.path('/profile');
+          $location.path('/book');
         }
         else{
           alert('couldnt save your review');
