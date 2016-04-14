@@ -1,60 +1,10 @@
 
 <main id="profile">
 
-  <div id="leftContent">
-    <div>
-      <h4>Wordpress</h4>
-      <button ng-if="!socialStatus.wordpress" ng-click="connectSocial('wordpress')">Connect</button>
-      <h5 ng-if="socialStatus.wordpress">Connected</h5>
-    </div>
-    <div>
-      <h4>Instagram</h4>
-      <button ng-if="!socialStatus.instagram" ng-click="connectSocial('instagram')">Connect</button>
-      <h5 ng-if="socialStatus.instagram">Connected</h5>
-    </div>
-    <div>
-      <h4>Twitter</h4>
-      <button ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
-      <h5 ng-if="socialStatus.twitter">Connected</h5>
-    </div>
-
-    <button ng-click="disconnectSocial()">disconnect</button>
-  </div>
-
-  <div id="mainContent">
-    <button ng-click="step = 1">Load Timeline</button>
-    <button ng-click="step = 2">View Reviews</button>
-    <!-- <button ng-click="step = 3">Load Timeline</button> -->
-
-
-    <div ng-if="step == 2" id="previewReviews">
-      <h3>coming soon...</h3>
-      <div ng-repeat="rev in userData.reviews">{{rev}}</div>
-    </div>
-    <div ng-if="step == 1">
-      <div id="timelineHeader">
-        <button ng-if="!hasOneConnected()">Must be connected to one service</button>
-        <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
-        <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()">Save Timeline</button>
-      </div>
-      <h3>Timeline</h3>
-      <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
-        <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
-          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
-          <h3 ng-bind-html="post.text"></h3>
-          <h4>{{post.created_at}}</h4>
-          <p>{{post.source}}</p>
-          <img ng-if="post.image" ng-src="{{post.image}}" />
-          <p ng-repeat="tag in post.hashtags" class="tag">#{{tag}}</p>
-        </div>
-        <div ng-class="!post.isIncluded? 'minimizedPost':''" ng-if="!post.isIncluded">
-          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
-          <p>hidden</p>
-        </div>
-        <span ng-if="post.isIncluded" ng-click="post.isIncluded = false" class="removePost"></span>
-        <span ng-if="!post.isIncluded" ng-click="post.isIncluded = true" class="addPost"></span>
-      </div>
-    </div>
+  <div ng-if="userData !== null">
+    <h1>Never lose your account by connecting to a social account</h1>
+    <button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button>
+    <button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button>
   </div>
 
 </main>

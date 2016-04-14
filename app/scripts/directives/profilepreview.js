@@ -7,7 +7,7 @@
  * # profilepreview
  */
 angular.module('barnacleMvpApp')
-  .directive('profilepreview', function ($window) {
+  .directive('profilepreview', function ($window, $location) {
     return {
       templateUrl: 'views/profilepreview.html',
       restrict: 'E',
@@ -23,9 +23,7 @@ angular.module('barnacleMvpApp')
         function initial(){
 
           if($window.localStorage.getItem('guestAccount')){
-          // $scope.$apply(function(){
-              $scope.isLoggedIn = {displayName:'Guest'};
-            // })
+            $scope.isLoggedIn = {displayName:'Guest'};
           }
           else{
             AccountService.userLoginStatus().then(function(response){
@@ -99,6 +97,7 @@ angular.module('barnacleMvpApp')
       try{
         console.log('[guestLogin] path: ', path.toString()); //save this to localStorage so user can access again later
         $window.localStorage.setItem('guestAccount', path.toString());
+        $location.path('/reflect');
       }
       catch(e){
         alert('issue using a guest account.');

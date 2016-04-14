@@ -41,6 +41,10 @@ angular
         templateUrl: 'views/book.html',
         controller: 'BookCtrl'
       })
+      .when('/reflect', {
+        templateUrl: 'views/reflect.html',
+        controller: 'ReflectCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

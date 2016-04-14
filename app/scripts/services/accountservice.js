@@ -160,7 +160,8 @@ angular.module('barnacleMvpApp')
 
         // var ref = ref.child("guestAccounts");
         //creates a random id and then save to localStorage (?)
-        return ref.push();
+        var d = new Date();
+        return ref.push({'date':d.toISOString()});
         // var path = newMessageRef.toString();
         // console.log('opath: ', path);
 
@@ -197,6 +198,7 @@ angular.module('barnacleMvpApp')
       getUserInfo: function(){
         var defer = $q.defer();
         if($window.localStorage.getItem('guestAccount')){
+          console.log('s: ', $window.localStorage.getItem('guestAccount'));
           var r = new Firebase($window.localStorage.getItem('guestAccount'));
           r.once('value', function(snapshot) {
             console.log('getUserInfo: ', snapshot.val());
@@ -215,8 +217,8 @@ angular.module('barnacleMvpApp')
         return defer.promise;
       },
       updateUserTags: function(tags){
-        console.log('adding tags to user profile: ', tags);
-        console.log('userData: ', userData);
+        // console.log('adding tags to user profile: ', tags);
+        // console.log('userData: ', userData);
         var otherTags = userData.tags;
         var currentTags = otherTags;
         for(var i = 0; i < tags.length; i++){
