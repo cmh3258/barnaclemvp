@@ -34,13 +34,14 @@ angular.module('barnacleMvpApp')
           return true;
         }
         else if(shouldCreate){
+          alert('trying to create user, dont do!');
           console.log('userData: ', userData);
-          var email = 'email' in userData ? userData.email : null;
+          /*var email = 'email' in userData ? userData.email : null;
           var provider = 'provider' in userData ? userData.provider : 'twitter';
           var profileImageURL = 'profileImageURL' in userData ? userData.profileImageURL : null;
           usersRef.child(userId).set({userId:userId, displayName:userData.displayName, email:email, provider:provider, profileImageURL:profileImageURL});
-          loggedIn = true;
-          return true;
+          loggedIn = true;*/
+          return false;
         }
         else{
           return false;

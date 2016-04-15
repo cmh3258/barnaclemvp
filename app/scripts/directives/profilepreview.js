@@ -17,6 +17,7 @@ angular.module('barnacleMvpApp')
       controller: function($scope, AccountService){
 
         $scope.isLoggedIn = false;
+        $scope.popUp = false;
 
         initial();
 

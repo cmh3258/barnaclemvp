@@ -1,17 +1,25 @@
 
-<div id="profilePreviewContainer">
+<div id="profilePreviewContainer" ng-click="popUp = true">
   <div ng-if="!isLoggedIn">
     <p>Not logged in</p>
-    <!-- <button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button> -->
-    <!-- <button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button> -->
+    <button class="signin-btn facebook-btn" ng-click="fbLogin()">Facebook</button>
+    <button class="signin-btn twitter-btn" ng-click="twitterLogin()">Twitter</button>
     <button class="signin-btn" ng-click="guestLogin()">Get Started</button>
   </div>
-
   <div ng-if="isLoggedIn">
-    Logged in! Welcome back {{isLoggedIn.displayName}}. 
-    <button ng-if="isLoggedIn.displayName !== 'Guest'" class="signin-btn" ng-click="logout()">Log Out</button>
-    <button ng-if="isLoggedIn.displayName === 'Guest'" class="signin-btn" ng-click="logoutGuest()">guest? remove from memory</button>
+    <h4>Welcome Back {{isLoggedIn.displayName}}.</h4>
   </div>
+
+  
 </div>
+
+<div ng-if="popUp" class="modal">
+  <div ng-if="isLoggedIn">
+    Welcome Back {{isLoggedIn.displayName}}. 
+    <button ng-if="isLoggedIn.displayName !== 'Guest'" class="signin-btn" ng-click="logout()">Log Out</button>
+    <button ng-if="isLoggedIn.displayName === 'Guest'" class="signin-btn" ng-click="logoutGuest()">Log Out</button>
+  </div>
+  <button ng-click="popUp = false">Close</button>
+  </div>
 
 
