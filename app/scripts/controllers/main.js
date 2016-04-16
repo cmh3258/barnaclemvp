@@ -10,6 +10,8 @@
 angular.module('barnacleMvpApp')
   .controller('MainCtrl', function ($scope, AccountService, $location, $window) {
 
-    
+    $scope.getStarted = function(){
+      $location.path('reflect');
+    }
 
   });

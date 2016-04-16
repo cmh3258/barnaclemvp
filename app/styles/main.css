@@ -41,6 +41,26 @@ a, li{
       border: 2px solid #6204CA;
       color: #6204CA;
     }
+    .connect-btn{
+      padding: 7px 16px;
+      border: 0;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .connect-btn:hover{
+      background-color: #3FF5AD;
+      color: white;
+    }
+    .default-tab{
+      padding: 8px 14px;
+      background: purple;
+      border: 0;
+      cursor: pointer;
+    }
+    .default-tab:hover{
+      background: blue;
+    }
 
 /* modal */
   .modal{
@@ -53,11 +73,66 @@ a, li{
     padding: 1em;
     border: 1px solid #dedede;
     box-shadow: 0px 1px 4px #C1C1C1;
+    min-height: 300px;
+    top:30%;
+  }
+  .modal > div{
+    position: relative;
+    text-align: center;
+  }
+  .modal .closeBtn{
+    position: absolute;
+    top: -21px;
+    right: 0px;
+    border: 0px;
+    cursor: pointer;
+  }
+  .modal .closeBtn:hover{
+    color: red;
+  }
+
+/* navbar */
+  .navbar-header{
+    display: inline-block;
+    margin-bottom: 2em;
+  }
+  .navbar-brand{
+    text-decoration: none;
+    font-size: 18px;
+    /*color: #6204CA;*/
+    color: #4e4e4e;
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+  .nav{
+    display: inline-block;
+  }
+  .navbar ul li{
+    display: inline-block;
+    padding-right: 16px;
+  }
+  .navbar ul li a{
+    text-decoration: none;
+    color: #4e4e4e;
+  }
+  .navbar ul li a:hover{
+    color: #6204CA;
+  }
+  .navbar ul li a:active{
+    color: #6204CA;
+
   }
 
 /* header section */
   #header{
     text-align: center;
+  }
+
+/* reflect */
+  #reflect{
+    max-width: 1300px;
+    margin:0 auto;
+    margin-top:4em;
   }
 
 /* profile */
@@ -67,7 +142,7 @@ a, li{
   }
   #leftContent{
     float: left;
-    width: 25%;
+    width: 20%;
     background-color: #e1e1e1;
     padding: 1em;
   }
@@ -92,6 +167,11 @@ a, li{
     width: 65%;
     margin-left: 2em;
     display: inline-block;
+  }
+  #mainContent > div{
+    margin: 0 auto;
+    width: 90%;
+
   }
 
   #timelineHeader{
@@ -173,7 +253,7 @@ a, li{
     /*border: 2px solid black;*/
     /*border-radius: 2px;*/
     /*background-color: gray;*/
-    padding: 1em;
+    padding: 0;
     color: #4E4E4E;
     position: absolute;
     /*width: 10em;*/
@@ -183,6 +263,9 @@ a, li{
   #profilePreviewContainer:hover{
     color: blue;
     cursor: pointer;
+  }
+  #profilePreviewContainer h4{
+    margin:0;
   }
 
 

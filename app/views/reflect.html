@@ -1,20 +1,20 @@
 
-<main id="">
+<main id="reflect">
 
   <div id="leftContent">
     <div>
       <h4>Wordpress</h4>
-      <button ng-if="!socialStatus.wordpress" ng-click="connectSocial('wordpress')">Connect</button>
+      <button class="connect-btn" ng-if="!socialStatus.wordpress" ng-click="connectSocial('wordpress')">Connect</button>
       <h5 ng-if="socialStatus.wordpress">Connected</h5>
     </div>
     <div>
       <h4>Instagram</h4>
-      <button ng-if="!socialStatus.instagram" ng-click="connectSocial('instagram')">Connect</button>
+      <button class="connect-btn" ng-if="!socialStatus.instagram" ng-click="connectSocial('instagram')">Connect</button>
       <h5 ng-if="socialStatus.instagram">Connected</h5>
     </div>
     <div>
       <h4>Twitter</h4>
-      <button ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
+      <button class="connect-btn" ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
       <h5 ng-if="socialStatus.twitter">Connected</h5>
     </div>
 
@@ -22,8 +22,9 @@
   </div>
 
   <div id="mainContent">
-    <button ng-click="step = 1">Load Timeline</button>
-    <button ng-click="step = 2">View Reviews</button>
+    <div>
+    <button ng-click="step = 1" class="default-tab">Load Timeline</button>
+    <button ng-click="step = 2" class="default-tab">View Reviews</button>
     <!-- <button ng-click="step = 3">Load Timeline</button> -->
 
 
@@ -37,7 +38,7 @@
         <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
         <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()">Save Timeline</button>
       </div>
-      <h3>Timeline</h3>
+      <h3 ng-if="timeline.length > 0">Timeline</h3>
       <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
         <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
           <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
@@ -55,6 +56,8 @@
         <span ng-if="!post.isIncluded" ng-click="post.isIncluded = true" class="addPost"></span>
       </div>
     </div>
+    </div>
+
   </div>
 
 </main>

@@ -115,6 +115,10 @@ angular.module('barnacleMvpApp')
       $scope.isLoggedIn = false;
     }
 
+    $scope.closeModal = function(){
+      $scope.popUp = false;
+    }
+
 
       }
     };
