@@ -54,12 +54,22 @@ a, li{
     }
     .default-tab{
       padding: 8px 14px;
-      background: purple;
+      background: #ECECEC;
       border: 0;
       cursor: pointer;
     }
     .default-tab:hover{
-      background: blue;
+      background: #ECECEC;
+    }
+    .deactive-tab{
+      background: #F7F7F7;
+    }
+    .disconnect-btn{
+      cursor: pointer;
+      float: right;
+    }
+    .disconnect-btn:hover{
+      background-color: red;
     }
 
 /* modal */
@@ -90,6 +100,8 @@ a, li{
   .modal .closeBtn:hover{
     color: red;
   }
+
+
 
 /* navbar */
   .navbar-header{
@@ -127,6 +139,31 @@ a, li{
   #header{
     text-align: center;
   }
+  #header h1{
+    margin-top: 5em;
+  }
+  #header button{
+    margin-top:2em;
+  }
+
+  /* four-col */
+    .four-col{
+      /*overflow: hidden;*/
+      margin-top:9em;
+    }
+    .four-col > div{
+      width: 69%;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .four-col > div > div{
+      width: 25%;
+      float: left;
+      text-align: center;
+    }
+    .four-col .col-icon{
+      width: 3em;
+    }
 
 /* reflect */
   #reflect{
@@ -143,8 +180,11 @@ a, li{
   #leftContent{
     float: left;
     width: 20%;
-    background-color: #e1e1e1;
+    /*background-color: #e1e1e1;*/
     padding: 1em;
+    background: white;
+    border: 2px solid #ECECEC;
+    border-radius: 5px;
   }
     #leftContent > div{
       margin-bottom: 3em;
@@ -159,9 +199,13 @@ a, li{
     #leftContent h5{
       float: right;
     }
+    #leftContent button{
+      font-size: 14px;
+    }
     #leftContent h5{
       color: #0AD60A;
     }
+    
 
   #mainContent{
     width: 65%;
@@ -175,7 +219,7 @@ a, li{
   }
 
   #timelineHeader{
-    background-color: purple;
+    background-color: #ECECEC;
     padding: 2em;
   }
   
