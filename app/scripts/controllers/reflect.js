@@ -24,9 +24,8 @@ angular.module('barnacleMvpApp')
 
     function initial(){
       
-      // $scope.socialStatus = SocialService.checkSocialStatus();
+      $scope.socialStatus = SocialService.checkSocialStatus();
       AccountService.getUserInfo().then(function(response){
-        // console.log('updated user info: ', response);
         $scope.userData = response;
       });
 

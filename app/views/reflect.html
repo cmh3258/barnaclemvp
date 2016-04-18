@@ -13,6 +13,11 @@
       <h5 ng-if="socialStatus.instagram">Connected</h5>
     </div>
     <div>
+      <h4>Facebook</h4>
+      <button class="connect-btn" ng-if="!socialStatus.facebook" ng-click="connectSocial('facebook')">Connect</button>
+      <h5 ng-if="socialStatus.facebook">Connected</h5>
+    </div>
+    <div>
       <h4>Twitter</h4>
       <button class="connect-btn" ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
       <h5 ng-if="socialStatus.twitter">Connected</h5>

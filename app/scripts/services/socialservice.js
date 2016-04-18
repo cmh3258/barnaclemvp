@@ -13,7 +13,8 @@ angular.module('barnacleMvpApp')
     var socialObjects = {
       twitter: null,
       instagram: null,
-      wordpress: null
+      wordpress: null,
+      facebook: null
     }
     
     function auth(socialsite){
@@ -107,11 +108,56 @@ angular.module('barnacleMvpApp')
 
     }
 
+    function fbPosts(){
+      var deferred = $q.defer();
+      
+      console.log('need to get user-id for fb.');
+      ///v2.6/{user-id}/photos HTTP/1.1
+      var promise = socialObjects.facebook.get('/v2.5/me/photos').done(function(data) { 
+        console.log('me: ', data);
+        var newResults = [];
+        var posts = data.data;
+        for(var i = 0; i < posts.length; i++){
+          var post = posts[i];
+          newResults.push({
+            'source':'facebook',
+            'text':'',
+            'title':post.name,
+            'created_at':post.date,
+            // 'image':image,
+            // 'hashtags':hashtags,
+            'isIncluded':true,
+            'postType':'facebookContainer'
+          })
+
+        }
+        deferred.resolve(newResults);
+
+
+
+        // created_time:"2016-04-08T23:24:23+0000"
+        // id:"1040534056019094"
+        // name:"Two handsome young men!!"
+
+        // if('id' in data){
+          // console.log(data.id, data.userID);
+          // promise = socialObjects.facebook.get('/v2.6/'+data.id.toString()+'/photos').done(function(data) { 
+          //   console.log('[facebook] data: ', data);
+
+
+          // })
+        // }
+      })
+
+
+      return deferred.promise;
+    }
+
     function wordpressPosts(){
       var deferred = $q.defer();
 
       // var promise = socialObjects.wordpress.get('/v1.1/sites/pondersimple/posts/').done(function(data) { 
-        console.log(socialObjects.wordpress, socialObjects.wordpress.blog_id);
+        // console.log(socialObjects.wordpress, socialObjects.wordpress.blog_id);
         var promise = socialObjects.wordpress.get('/rest/v1/me/').done(function(data) { 
           promise = socialObjects.wordpress.get('/rest/v1/sites/'+data.token_site_id+'/posts/').done(function(data) { 
 
@@ -178,6 +224,7 @@ angular.module('barnacleMvpApp')
         var twitter = OAuth.create('twitter');
         var instagram = OAuth.create('instagram');
         var wordpress = OAuth.create('wordpress');
+        var facebook = OAuth.create('facebook');
 
         if(twitter !== null){
           socialObjects.twitter = twitter;
@@ -187,6 +234,9 @@ angular.module('barnacleMvpApp')
         }
         if(wordpress !== null){
           socialObjects.wordpress = wordpress;
+        }
+        if(facebook !== null){
+          socialObjects.facebook = facebook;
         }
 
         console.log('socialObjects: ', socialObjects);
@@ -216,6 +266,9 @@ angular.module('barnacleMvpApp')
             }
             if(key === 'instagram'){
               data.push(instagramPosts());
+            }
+            if(key === 'facebook'){
+              data.push(fbPosts());
             }
 
           }
