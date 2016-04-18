@@ -123,7 +123,7 @@ angular.module('barnacleMvpApp')
             'source':'facebook',
             'text':'',
             'title':post.name,
-            'created_at':post.date,
+            'created_at':post.created_time,
             // 'image':image,
             // 'hashtags':hashtags,
             'isIncluded':true,
@@ -131,6 +131,12 @@ angular.module('barnacleMvpApp')
           })
 
         }
+
+        socialObjects.facebook.get(data.paging.next).done(function(dataa) {
+          console.log('paging data: ', dataa);
+
+        })
+
         deferred.resolve(newResults);
 
 
