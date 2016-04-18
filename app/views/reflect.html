@@ -44,16 +44,22 @@
           <p>How do I connect? Click one of the 'Connect' buttons to your left!</p>
         </div>
 
-        <button ng-if="hasOneConnected()" ng-click="loadTimeline()">Load Timeline</button>
-        <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()">Save Timeline</button>
+        <button ng-if="hasOneConnected()" ng-click="loadTimeline()" class="default-btn">Load Timeline</button>
+        <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()" class="default-btn">Save Timeline</button>
       </div>
       <h3 ng-if="timeline.length > 0">Timeline</h3>
       <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
         <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
-          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
-          <h3 ng-bind-html="post.text"></h3>
-          <h4>{{post.created_at}}</h4>
-          <p>{{post.source}}</p>
+
+          <div class="icon-left">
+            <span class="{{post.source}}-icon"></span>
+          </div>
+          <div class="info-right">
+            <h4 class="date">{{post.created_at | date:'medium'}}</h4>
+            <h2 class="title" ng-if="post.title" ng-bind-html="post.title"></h2>
+            <p class="text" ng-bind-html="post.text"></p>
+          </div>
+          <!-- <p>{{post.source}}</p> -->
           <img ng-if="post.image" ng-src="{{post.image}}" />
           <p ng-repeat="tag in post.hashtags" class="tag">#{{tag}}</p>
         </div>

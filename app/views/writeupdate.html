@@ -1,10 +1,23 @@
 
-<h1>Success saving, now write a review</h1>
+<main id="writeDoc">
+  <div>
+    <div class="successBox" ng-hide="successBoxClose">
+      <p>Success saving review.</p>
+      <p class="close" ng-click="successBoxClose = true">close</p>
+    </div>
 
-<a href="/profile">back</a>
+    <h1>Let's Write</h1>
+    <h3>You have your social posts, now write a quick review on your life from the past days</h3>
 
-<div>
-<textarea placeholder="how has life been?" ng-model="text"></textarea>
-</div>
-<button ng-click="finishedWriting(text)">done</button>
-<button ng-click="skip()">skip</button>
+    <a href="/reflect" class="write-back-btn"><- back</a>
+    <hr>
+
+    <!-- <div> -->
+    <textarea placeholder="So... how has life been?" ng-model="text"></textarea>
+    <!-- </div> -->
+    <div id="buttons">
+      <button ng-click="skip()" class="default-btn">skip</button>
+      <button ng-click="finishedWriting(text)" class="default-btn">done</button>
+    </div>
+  </div>
+</main>

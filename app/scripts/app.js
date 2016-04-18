@@ -60,7 +60,7 @@ angular
       AccountService.userLoginStatus().then(function(response){
         console.log('userLoginStatus: ', response);
         if(response === false || response.val() == null){
-          $location.path('/main');
+          // $location.path('/main');
         }
         else{
           // $location.path('/profile');

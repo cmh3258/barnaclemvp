@@ -25,6 +25,16 @@ a, li{
 }
 
 
+.twitter-icon{
+  background: url('../images/twitter-icon.png') center no-repeat;
+  background-size: 20px;
+  padding: 20px;
+}
+.wordpress-icon{
+  background: url('../images/wordpress-icon.png') center no-repeat;
+  background-size: 20px;
+  padding: 20px;
+}
 
 /* Buttons */
     .signin-btn{
@@ -253,10 +263,40 @@ a, li{
     margin-bottom: 2em;
     position: relative;
     min-height: 2em;
+    overflow: hidden;
+  }
+  .postContainer > div{
+    overflow: hidden;
   }
   .postContainer img{
     width: 100%;
   }
+  .postContainer .icon-left{
+    width: 9%;
+    float: left;
+  }
+  .postContainer .info-right{
+    width: 90%;
+    float: left;
+  }
+  .postContainer .date{
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #ABABAB;
+  }
+  .postContainer .title{
+    font-family: Muli;
+  }
+  .postContainer .text{
+    font-family: Dosis;
+    font-size: 18px;
+    letter-spacing: 1px;
+    /*font-family: Muli;*/
+  /*font-family: 'Droid Serif';*/
+
+  }
+
   .tag{
     display: inline-block;
     color: gray;
@@ -271,6 +311,11 @@ a, li{
     margin: 0 auto;
     margin-bottom: 1em;
   }
+  /*.twitterContainer h3{
+    display: inline-block;
+    margin-left: 35px;
+    margin-top: -23px;
+  }*/
 
   .removePost{
     width: 20px;
@@ -326,5 +371,79 @@ a, li{
   #profilePreviewContainer h4{
     margin:0;
   }
+
+/* writeDoc */
+  /* alert box */
+    .successBox{
+      background: white;
+      padding: 1px 14px;
+      border: 3px solid #5B0080;
+      border-radius: 4px;
+      overflow: auto;
+      margin-bottom: 3em;
+    }
+    .successBox p{
+      font-family: 'Droid Serif';
+      font-size: 14px;
+      color: #5B0080;
+      font-weight: bold;
+    }
+    .successBox p:nth-of-type(1){
+      width: 80%;
+      float: left;
+    }
+    .successBox .close{
+      float: right;
+      width: 10%;
+      cursor: pointer;
+      text-align: right;
+    }
+    .successBox .close:hover{
+      color: green;
+    }
+  .write-back-btn{
+    position: absolute;
+    left: 3em;
+    top: 5em;
+    text-decoration: none;
+  }
+
+  #writeDoc h1, #writeDoc h3{
+    text-align: center;
+  }
+  #writeDoc h1{
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  #writeDoc h3{
+    font-size: 18px;
+    color:#ABABAB;
+    margin: 0;
+    margin-bottom: 39px;
+    font-weight: lighter;
+  }
+  #writeDoc > div{
+    width: 50%;
+    margin: 0 auto;
+  }
+  #writeDoc textarea{
+    border: 0;
+    width: 100%;
+    margin: 0;
+    padding: 2em;
+    font-size: 18px;
+    border-radius: 6px;
+    min-height: 25em;
+    font-family: 'Droid Serif';
+    resize: none
+  }
+  #writeDoc textarea:focus{
+    outline: none;
+    box-shadow: none;
+  }
+  #writeDoc #buttons{
+    float: right;
+  }
+
 
 
