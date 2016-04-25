@@ -429,6 +429,10 @@ a, li{
     margin: 0;
     margin-bottom: 39px;
     font-weight: lighter;
+
+    width: 64%;
+    margin: 0 auto;
+    margin-bottom: 22px;
   }
   #writeDoc > div{
     width: 50%;
@@ -453,5 +457,12 @@ a, li{
     float: right;
   }
 
+
+/* book */
+  #book{}
+  #book > div{
+    width: 60%;
+    margin: 0 auto;
+  }
 
 

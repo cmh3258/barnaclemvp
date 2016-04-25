@@ -73,14 +73,16 @@ angular.module('barnacleMvpApp')
         }
       }
 
-      console.log('saving final posts: ', finalPosts);
-      var token = ReviewService.saveReview({'title':'Testing Save Review', 'text':'Here is some text for this fake review.'});
+      // console.log('saving final posts: ', finalPosts);
+      var posts1 = angular.copy([finalPosts[2]]);
+      // console.log('posts1: ', posts1);
+      var token = ReviewService.saveReview(posts1);
       if(token){
-        console.log('saved revievw! : ', token);
+        // console.log('saved revievw! : ', token);
         AccountService.updateUserReviews(token).then(function(response){
-          console.log('hi: ', response);          
+          // console.log('hi: ', response);          
           if(response){
-            alert('success');
+            // alert('success');
             $location.path('/writeupdate');
           }
           else{
@@ -91,6 +93,12 @@ angular.module('barnacleMvpApp')
       else{
         console.log('BAD saved revievw: ', token);
       }
+    }
+
+
+    $scope.viewReview = function(reviewId){
+      // ReviewService.setCurrentReviewToken(reviewId);
+      $location.path('/book/'+reviewId);
     }
 
 

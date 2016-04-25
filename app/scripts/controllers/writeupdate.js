@@ -8,7 +8,7 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('WriteupdateCtrl', function ($scope, $location, ReviewService) {
+  .controller('WriteupdateCtrl', function ($scope, $timeout, $location, ReviewService) {
     
     $scope.finishedWriting = function(content){
       ReviewService.addTextToReview(content).then(function(response){
@@ -25,6 +25,16 @@ angular.module('barnacleMvpApp')
 
     $scope.skip = function(){
       $location.path('/profile');
+    }
+
+    if($scope.successBoxClose === undefined){
+      console.log('in the und.');
+      $timeout(function() {
+        $scope.$apply(function(){
+          $scope.successBoxClose = true;
+          console.log('$scope.successBoxClose: ', $scope.successBoxClose);
+        })
+      }, 3000);
     }
 
 

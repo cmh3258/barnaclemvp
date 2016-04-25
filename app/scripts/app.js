@@ -37,7 +37,11 @@ angular
         templateUrl: 'views/writeupdate.html',
         controller: 'WriteupdateCtrl'
       })
-      .when('/book', {
+      .when('/book/:reviewId', {
+        templateUrl: 'views/book.html',
+        controller: 'BookCtrl'
+      })
+      .when('/book/', {
         templateUrl: 'views/book.html',
         controller: 'BookCtrl'
       })

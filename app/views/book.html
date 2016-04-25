@@ -1,12 +1,46 @@
-<p>This is the book view.</p>
-
-<h2>Buy your book now!</h2>
-<button>buy</button>
+<!-- <p>This is the book view.</p> -->
 
 
-  <p>data.date</p>
-  <p>data.text</p>
-<div ng-repeat="post in data.posts">
-  <p>post.text</p>
-  <p>post.title</p>
-</div>
+
+
+<main id="book">
+  <div>
+    <h2>Buy your book now!</h2>
+    <button>buy</button>
+
+    <button>Go to profile</button>
+
+    <p>Created: {{data.date | date:'medium'}}</p>
+    <p>Review: {{data.text}}</p>
+    <!-- <p>p:{{data.posts}}</p> -->
+    
+    <!-- <div ng-repeat="post in data.posts">
+      {{post}}
+    </div> -->
+
+    <hr>
+    <div ng-repeat="post in data.posts | orderBy: '-created_at'" class="postContainer">
+        <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
+
+          <div class="icon-left">
+            <span class="{{post.source}}-icon"></span>
+          </div>
+          <div class="info-right">
+            <h4 class="date">{{post.created_at | date:'medium'}}</h4>
+            <h2 class="title" ng-if="post.title" ng-bind-html="post.title"></h2>
+            <p class="text" ng-bind-html="post.text"></p>
+          </div>
+          <!-- <p>{{post.source}}</p> -->
+          <img ng-if="post.image" ng-src="{{post.image}}" />
+          <p ng-repeat="tag in post.hashtags" class="tag">#{{tag}}</p>
+        </div>
+        <!-- <div ng-class="!post.isIncluded? 'minimizedPost':''" ng-if="!post.isIncluded">
+          <h2 ng-if="post.title" ng-bind-html="post.title"></h2>
+          <p>hidden</p>
+        </div>
+        <span ng-if="post.isIncluded" ng-click="post.isIncluded = false" class="removePost"></span>
+        <span ng-if="!post.isIncluded" ng-click="post.isIncluded = true" class="addPost"></span> -->
+      </div>
+
+  </div>
+</main>

@@ -114,6 +114,13 @@ angular.module('barnacleMvpApp')
       }
     };
 
+    function getMonthName(num){
+      var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      return monthNames[num];
+    }
+
     // Public API here
     return {
       loginFacebook: function(){
@@ -240,12 +247,18 @@ angular.module('barnacleMvpApp')
             r.once('value', function(snapshot) {
               var us = snapshot.val();
               var reviews = [];
+              var newReview = {
+                'reviewId':reviewId,
+                'date': (new Date()).toISOString(),
+                'title': getMonthName((new Date()).getMonth())
+              }
+
               try{
                 reviews = us.reviews;
-                reviews.push(reviewId);
+                reviews.push(newReview);
               }
               catch(e){
-                reviews = [reviewId]
+                reviews = [newReview]
               }
 
               r.update({reviews:reviews}, function(error){

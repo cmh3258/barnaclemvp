@@ -74,8 +74,25 @@ angular.module('barnacleMvpApp')
             defer.resolve(review);
           })
         }
-
         return defer.promise;
+      },
+      viewCurrentReviewWToken: function(token){
+        var defer = $q.defer();
+        if(token === null){
+          defer.resolve(false);
+        }
+        else{
+          var reviewRef = new Firebase("https://barnacle-mvp.firebaseio.com/reviews/"+token);
+          reviewRef.once("value", function(snapshot) {
+            var review = snapshot.val();
+            defer.resolve(review);
+          })
+        }
+        return defer.promise;
+      },
+      setCurrentReviewToken: function(token){
+        $window.localStorage.setItem('currentPostToken', token);
+        currentToken = token;
       }
     };
   });

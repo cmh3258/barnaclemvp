@@ -8,19 +8,45 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('BookCtrl', function ($scope, $location, ReviewService) {
+  .controller('BookCtrl', function ($scope, $location, ReviewService, $routeParams) {
   
     $scope.data = null;
 
-    ReviewService.viewCurrentReview().then(function(response){
-      console.log('current review: ', response);
-      if(!response){
-        $location.path('/profile');
+    initial();
+
+    function initial(){
+      if('reviewId' in $routeParams){
+        console.log('routeParams: ', $routeParams.reviewId);
+        ReviewService.viewCurrentReviewWToken($routeParams.reviewId).then(function(response){
+          console.log('current review: ', response);
+          if(!response){
+            $location.path('/reflect');
+          }
+          else{
+            $scope.data = response;
+          }
+        })
       }
       else{
-        $scope.data = response;
-
+        loadReview();
       }
-    })
+    }
+
+    function loadReview(){
+      ReviewService.viewCurrentReview().then(function(response){
+        console.log('current review: ', response);
+        if(!response){
+          $location.path('/reflect');
+        }
+        else{
+          $scope.data = response;
+
+        }
+      })
+    }
+
+    
+
+    
 
   });

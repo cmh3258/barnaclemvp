@@ -35,7 +35,9 @@
 
     <div ng-if="step == 2" id="previewReviews">
       <h3>coming soon...</h3>
-      <div ng-repeat="rev in userData.reviews">{{rev}}</div>
+      <div ng-repeat="rev in userData.reviews" ng-click="viewReview(rev.reviewId)">
+        {{rev}}
+      </div>
     </div>
     <div ng-if="step == 1">
       <div id="timelineHeader">
