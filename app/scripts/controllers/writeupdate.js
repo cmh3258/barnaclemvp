@@ -10,8 +10,8 @@
 angular.module('barnacleMvpApp')
   .controller('WriteupdateCtrl', function ($scope, $timeout, $location, ReviewService) {
     
-    $scope.finishedWriting = function(content){
-      ReviewService.addTextToReview(content).then(function(response){
+    $scope.finishedWriting = function(content, author){
+      ReviewService.addTextToReview(content, author).then(function(response){
         console.log('finishedWriting response: ', response);
         if(response){
           alert('success');

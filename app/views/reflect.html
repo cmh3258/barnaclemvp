@@ -34,9 +34,10 @@
 
 
     <div ng-if="step == 2" id="previewReviews">
-      <h3>coming soon...</h3>
+      <!-- <h3>coming soon...</h3> -->
       <div ng-repeat="rev in userData.reviews" ng-click="viewReview(rev.reviewId)">
-        {{rev}}
+        {{rev.date | date:'short'}}
+        {{rev.title}}
       </div>
     </div>
     <div ng-if="step == 1">

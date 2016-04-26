@@ -100,6 +100,11 @@ a, li{
     .disconnect-btn:hover{
       background-color: red;
     }
+    .buy-btn{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
 
 /* modal */
   .modal{
@@ -438,7 +443,8 @@ a, li{
     width: 50%;
     margin: 0 auto;
   }
-  #writeDoc textarea{
+  #writeDoc textarea,
+  #book .review pre{
     border: 0;
     width: 100%;
     margin: 0;
@@ -447,7 +453,9 @@ a, li{
     border-radius: 6px;
     min-height: 25em;
     font-family: 'Droid Serif';
-    resize: none
+    resize: none;
+    line-height:27px;
+    color: #4E4E4E;
   }
   #writeDoc textarea:focus{
     outline: none;
@@ -455,6 +463,20 @@ a, li{
   }
   #writeDoc #buttons{
     float: right;
+  }
+  #writeDoc input{
+    padding: 11px;
+    width: 65%;
+    border-radius: 10px;
+    border: 1px solid #dedede;
+  }
+  #writeDoc input:focus,
+  #writeDoc input:active{
+    outline: none;
+    box-shadow: none;
+    /*border-radius: 10px;*/
+    border-color: #5B0080;
+    /*border: 1px solid #dedede;*/
   }
 
 
@@ -464,5 +486,30 @@ a, li{
     width: 60%;
     margin: 0 auto;
   }
+  #book .review{
+    position: relative;
+  }
+  #book .review h2{
+    margin-bottom: 5px;
+    font-size: 30px;
+  }
+  #book .review h2,
+  #book .review h4{
+    text-align: center;
+    margin-top: 0;
+  }
+  #book .review h4{
+    color: #ABABAB;
+  }
+  #book .review pre{
+    min-height: 0;
+    white-space: pre-line;
+    color: #4E4E4E;
+  }
+  #book hr{
+    margin-top: 3em;
+    margin-bottom: 5em;
+  }
+
 
 

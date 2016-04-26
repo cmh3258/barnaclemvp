@@ -5,13 +5,18 @@
 
 <main id="book">
   <div>
-    <h2>Buy your book now!</h2>
-    <button>buy</button>
+    <!-- <h2>Buy your book now!</h2>
+    <button>buy</button> -->
 
-    <button>Go to profile</button>
+    <!-- <button>Go to profile</button> -->
 
-    <p>Created: {{data.date | date:'medium'}}</p>
-    <p>Review: {{data.text}}</p>
+    <div class="review">
+      <h2>{{data.title}}</h2>
+      <h4>{{data.date | date:'medium'}}</h4>
+      <pre>{{data.text}}</pre>
+
+      <button class="default-btn buy-btn">Get Now!</button>
+    </div>
     <!-- <p>p:{{data.posts}}</p> -->
     
     <!-- <div ng-repeat="post in data.posts">

@@ -247,10 +247,11 @@ angular.module('barnacleMvpApp')
             r.once('value', function(snapshot) {
               var us = snapshot.val();
               var reviews = [];
+              var title =  getMonthName((new Date()).getMonth()) + ' Review';
               var newReview = {
                 'reviewId':reviewId,
                 'date': (new Date()).toISOString(),
-                'title': getMonthName((new Date()).getMonth())
+                'title':title
               }
 
               try{

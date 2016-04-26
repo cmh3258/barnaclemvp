@@ -15,9 +15,10 @@
     <!-- <div> -->
     <textarea placeholder="So... how has life been?" ng-model="text"></textarea>
     <!-- </div> -->
+    <input placeholder="Authors name" ng-model="author"></input>
     <div id="buttons">
       <button ng-click="skip()" class="default-btn">skip</button>
-      <button ng-click="finishedWriting(text)" class="default-btn">done</button>
+      <button ng-click="finishedWriting(text, author)" class="default-btn">done</button>
     </div>
   </div>
 </main>
