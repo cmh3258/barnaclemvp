@@ -49,21 +49,24 @@
 
   </div>
 
- <form action="" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-    data-amount="999"
-    data-name="Stripe.com"
-    data-description="Widget"
-    data-image="/img/documentation/checkout/marketplace.png"
-    data-zip-code="true"
-    data-locale="auto">
-  </script>
-</form>
-      
+
+
   <div ng-if="popUp" class="modal">
     <div>
+      <h1>Purchase</h1>
+      <h4>Fill out these few fields to submit your review for purchase.</h4>
+      <form>
+        <input placeholder="Enter Name"/>
+        <input placeholder="Enter Shipping Address"/>
+        <button stripe-checkout="doCheckout"
+              data-key="pk_test_PhxW8hKuuX9B74ebpE3E8G1q"
+              data-name="Purchase Continued"
+              data-description="connect, reflect, grow"
+              data-zip-code="true"
+              data-amount="25000">
+            Add Payment
+        </button>
+      </form>
       <span class="closeBtn" ng-click="closeModal()">Close</span>
 
 

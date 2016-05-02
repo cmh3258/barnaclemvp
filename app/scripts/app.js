@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'oauthio'
+    'oauthio',
+    'stripe.checkout'
   ])
   .config(function ($routeProvider) {
     $routeProvider

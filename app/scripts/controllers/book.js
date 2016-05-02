@@ -53,6 +53,10 @@ angular.module('barnacleMvpApp')
       $scope.popUp = false;
     }
 
+    $scope.doCheckout = function(token) {
+            alert("Got Stripe token: " + token.id);
+          };
+
     
 
     
