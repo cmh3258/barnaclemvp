@@ -36,6 +36,9 @@ a, li{
   background-size: 20px;
   padding: 20px;
 }
+.color-black{
+  color: #4E4E4E !important;
+}
 
 /* Buttons */
     .signin-btn{
@@ -80,6 +83,7 @@ a, li{
       background-color: #3FF5AD;
       color: white;
     }
+
     .default-tab{
       padding: 8px 14px;
       background: #ECECEC;
@@ -99,6 +103,7 @@ a, li{
     }
     .disconnect-btn:hover{
       background-color: red;
+      color: white;
     }
     .buy-btn{
       position: absolute;
@@ -240,8 +245,11 @@ a, li{
     #leftContent button{
       font-size: 14px;
     }
-    #leftContent h5{
+    #leftContent .disconnect-btn{
       color: #0AD60A;
+    }
+    #leftContent .disconnect-btn:hover{
+      color: white;
     }
     
 

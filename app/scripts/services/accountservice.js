@@ -210,6 +210,7 @@ angular.module('barnacleMvpApp')
           var r = new Firebase($window.localStorage.getItem('guestAccount'));
           r.once('value', function(snapshot) {
             console.log('getUserInfo: ', snapshot.val());
+            userData = snapshot.val();
             defer.resolve(snapshot.val());
           })
         }
@@ -300,16 +301,28 @@ angular.module('barnacleMvpApp')
                 }
               });
             })
-
-            
           }
         }
         else{
           defer.resolve(false);
         }
-
         return defer.promise;
-
+      },
+      userOwnsReview: function(id){
+        console.log(userData);
+        if(userData === null){
+          return false;
+        }
+        else if('reviews' in userData){
+          console.log('userData.reviews: ', userData.reviews);
+          for(var i = 0; i < userData.reviews.length; i++){
+            console.log('userData.reviews[i]: ', userData.reviews[i]);
+            if(id === userData.reviews[i].reviewId){
+              return true;
+            }
+          }
+        }
+        return false;
       }
     };
   });

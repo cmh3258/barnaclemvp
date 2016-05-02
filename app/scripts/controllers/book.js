@@ -8,9 +8,10 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('BookCtrl', function ($scope, $location, ReviewService, $routeParams) {
+  .controller('BookCtrl', function ($scope, $location, $routeParams, ReviewService, AccountService) {
   
     $scope.data = null;
+    $scope.popUp = false;
 
     initial();
 
@@ -19,6 +20,9 @@ angular.module('barnacleMvpApp')
         console.log('routeParams: ', $routeParams.reviewId);
         ReviewService.viewCurrentReviewWToken($routeParams.reviewId).then(function(response){
           console.log('current review: ', response);
+
+          console.log('is owner of post: ', AccountService.userOwnsReview($routeParams.reviewId));
+
           if(!response){
             $location.path('/reflect');
           }
@@ -43,6 +47,10 @@ angular.module('barnacleMvpApp')
 
         }
       })
+    }
+
+    $scope.closeModal = function(){
+      $scope.popUp = false;
     }
 
     

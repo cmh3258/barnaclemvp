@@ -24,7 +24,7 @@ angular.module('barnacleMvpApp')
     }
 
     $scope.skip = function(){
-      $location.path('/profile');
+      $location.path('/book');
     }
 
     if($scope.successBoxClose === undefined){

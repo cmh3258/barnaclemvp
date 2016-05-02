@@ -5,12 +5,12 @@
     <div>
       <h4>Wordpress</h4>
       <button class="connect-btn" ng-if="!socialStatus.wordpress" ng-click="connectSocial('wordpress')">Connect</button>
-      <h5 ng-if="socialStatus.wordpress">Connected</h5>
+      <button class="connect-btn disconnect-btn" ng-if="socialStatus.wordpress" ng-click="disconnectSocial('wordpress')">Connected</button>
     </div>
     <div>
       <h4>Instagram</h4>
       <button class="connect-btn" ng-if="!socialStatus.instagram" ng-click="connectSocial('instagram')">Connect</button>
-      <h5 ng-if="socialStatus.instagram">Connected</h5>
+      <button class="connect-btn disconnect-btn" ng-if="socialStatus.instagram" ng-click="disconnectSocial('instagram')">Connected</button>
     </div>
     <!-- <div>
       <h4>Facebook</h4>
@@ -20,10 +20,10 @@
     <div>
       <h4>Twitter</h4>
       <button class="connect-btn" ng-if="!socialStatus.twitter" ng-click="connectSocial('twitter')">Connect</button>
-      <h5 ng-if="socialStatus.twitter">Connected</h5>
+      <button class="connect-btn disconnect-btn" ng-if="socialStatus.twitter" ng-click="disconnectSocial('twitter')">Connected</button>
     </div>
 
-    <span ng-click="disconnectSocial()" class="connect-btn disconnect-btn">disconnect</span>
+    <span ng-click="disconnectSocial()" class="connect-btn disconnect-btn color-black">disconnect all</span>
   </div>
 
   <div id="mainContent">

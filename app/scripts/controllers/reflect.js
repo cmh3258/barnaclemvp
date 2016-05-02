@@ -23,27 +23,29 @@ angular.module('barnacleMvpApp')
     initial();
 
     function initial(){
-      
       $scope.socialStatus = SocialService.checkSocialStatus();
       AccountService.getUserInfo().then(function(response){
         $scope.userData = response;
       });
-
     }
 
 
     $scope.connectSocial = function(site){
       SocialService.connectSocial(site).then(function(response){
-        console.log('frontent connectSocial: ', response);
+        // console.log('frontent connectSocial: ', response);
         $scope.socialStatus = response;
       })
     };
+
+    $scope.disconnectSocial = function(serviceName){
+      OAuth.clearCache(serviceName);
+      $scope.socialStatus[serviceName] = null;
+    }
 
 
     // $scope.$watch(function(){
     //   return $scope.socialStatus;
     // },function(newValue){
-      
     // })
 
     $scope.hasOneConnected = function(){
@@ -58,7 +60,7 @@ angular.module('barnacleMvpApp')
 
     $scope.loadTimeline = function(){
       SocialService.loadTimeline().then(function(response){
-        console.log('ctrl loadTimeline response: ', response);
+        // console.log('ctrl loadTimeline response: ', response);
         $scope.timeline = response;
       })
     };

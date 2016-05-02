@@ -12,10 +12,10 @@
 
     <div class="review">
       <h2>{{data.title}}</h2>
-      <h4>{{data.date | date:'medium'}}</h4>
+      <h4>{{data.date | date:'medium'}} <span ng-if="data.author !== null">by {{data.author}}</span></h4>
       <pre>{{data.text}}</pre>
 
-      <button class="default-btn buy-btn">Get Now!</button>
+      <button class="default-btn buy-btn" ng-click="popUp = true">Get Now!</button>
     </div>
     <!-- <p>p:{{data.posts}}</p> -->
     
@@ -48,4 +48,26 @@
       </div>
 
   </div>
+
+ <form action="" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+    data-amount="999"
+    data-name="Stripe.com"
+    data-description="Widget"
+    data-image="/img/documentation/checkout/marketplace.png"
+    data-zip-code="true"
+    data-locale="auto">
+  </script>
+</form>
+      
+  <div ng-if="popUp" class="modal">
+    <div>
+      <span class="closeBtn" ng-click="closeModal()">Close</span>
+
+
+    </div>
+  </div>
+
 </main>
