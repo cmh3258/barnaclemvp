@@ -76,7 +76,7 @@ angular.module('barnacleMvpApp')
       }
 
       // console.log('saving final posts: ', finalPosts);
-      var posts1 = angular.copy([finalPosts[2]]);
+      var posts1 = angular.copy(finalPosts);
       // console.log('posts1: ', posts1);
       var token = ReviewService.saveReview(posts1);
       if(token){

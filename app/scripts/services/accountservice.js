@@ -323,6 +323,74 @@ angular.module('barnacleMvpApp')
           }
         }
         return false;
+      },
+      addOrderIdToUser: function(orderId){
+        var defer = $q.defer();
+        if(orderId !== null){
+        //check for a guest account
+          if($window.localStorage.getItem('guestAccount')){
+            var r = new Firebase($window.localStorage.getItem('guestAccount'));
+
+            r.once('value', function(snapshot) {
+              var us = snapshot.val();
+              var orders = [];
+              var newOrder = {
+                'orderId':orderId,
+                'date': (new Date()).toISOString()
+              }
+
+              try{
+                orders = us.orders;
+                orders.push(newOrder);
+              }
+              catch(e){
+                orders = [newOrder]
+              }
+
+              r.update({orders:orders}, function(error){
+                if (error) {
+                  console.log('[addOrderIdToUser] GUEST Synchronization failed');
+                  // successfulUserReviewUpdate = 'Synchronization failed';
+                  defer.resolve(false);
+                } else {
+                  console.log('[addOrderIdToUser] GUEST Synchronization succeeded');
+                  // successfulUserReviewUpdate = 'Synchronization succeeded';
+                  defer.resolve(true);
+                }
+              })
+            })
+          }
+          else{
+            usersRef.child(userData.userId).once('value', function(snapshot) {
+              var us = snapshot.val();
+              var orders = [];
+              try{
+                orders = us.orders;
+                orders.push(orderId);
+              }
+              catch(e){
+                orders = [orderId]
+              }
+
+              usersRef.child(userData.userId).update({orders:orders}, function(error){
+                // console.log('made it');
+                if (error) {
+                  console.log('[addOrderIdToUser] Synchronization failed');
+                  // successfulUserReviewUpdate = 'Synchronization failed';
+                  defer.resolve(false);
+                } else {
+                  console.log('[addOrderIdToUser] Synchronization succeeded');
+                  // successfulUserReviewUpdate = 'Synchronization succeeded';
+                  defer.resolve(true);
+                }
+              });
+            })
+          }
+        }
+        else{
+          defer.resolve(false);
+        }
+        return defer.promise;
       }
     };
   });
