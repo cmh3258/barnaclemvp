@@ -13,6 +13,7 @@ angular.module('barnacleMvpApp')
     $scope.data = null;
     $scope.popUp = false;
     var reviewId = null;
+    $scope.showForm = false;
 
     initial();
 
@@ -58,6 +59,10 @@ angular.module('barnacleMvpApp')
     $scope.doCheckout = function(token) {
       alert("Got Stripe token: " + token.id);
     };
+
+    $scope.purchaseForm = function(show){
+      $scope.showForm = show;
+    }
 
     $scope.submitOrder = function(order){
       console.log('submitting order: ', order, reviewId);

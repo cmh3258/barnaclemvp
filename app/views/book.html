@@ -4,7 +4,33 @@
 
 
 <main id="book">
-  <div>
+  <div ng-if="showForm">
+    <div>
+      <h1>Purchase <span id="close-btn" ng-click="purchaseForm(false)">close</span></h1>
+      
+      <h4>Fill out these few fields to submit your review for purchase.</h4>
+      <form>
+        <div>
+          <input placeholder="First Name" ng-model="order.fname" id="fname"/>
+          <input placeholder="Last Name" ng-model="order.lname"/>
+        </div>
+        <input placeholder="Enter Shipping Address" ng-model="order.address"/>
+        
+        <button ng-click="submitOrder(order)" class="default-btn">submit</button>
+      </form>
+      <button class="default-btn" stripe-checkout="doCheckout"
+              data-key="pk_test_PhxW8hKuuX9B74ebpE3E8G1q"
+              data-name="Purchase Continued"
+              data-description="connect, reflect, grow"
+              data-zip-code="true"
+              data-amount="25000">
+            Add Payment
+        </button>
+      <!-- <span class="closeBtn" ng-click="closeModal()">Close</span> -->
+    </div>
+  </div>
+
+  <div ng-if="!showForm">
     <!-- <h2>Buy your book now!</h2>
     <button>buy</button> -->
 
@@ -15,7 +41,7 @@
       <h4>{{data.date | date:'medium'}} <span ng-if="data.author !== null">by {{data.author}}</span></h4>
       <pre>{{data.text}}</pre>
 
-      <button class="default-btn buy-btn" ng-click="popUp = true">Get Now!</button>
+      <button class="default-btn buy-btn" ng-click="purchaseForm(true)">Get Now!</button>
     </div>
     <!-- <p>p:{{data.posts}}</p> -->
     

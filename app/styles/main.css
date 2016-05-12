@@ -24,6 +24,9 @@ a, li{
   color: #6204CA;
   font-family: Muli;
 }
+p{
+  line-height: 29px;
+}
 
 
 .twitter-icon{
@@ -490,6 +493,9 @@ a, li{
 
 /* book */
   #book{}
+  #book h1{
+    position: relative;
+  }
   #book > div{
     width: 60%;
     margin: 0 auto;
@@ -518,6 +524,34 @@ a, li{
     margin-top: 3em;
     margin-bottom: 5em;
   }
-
+  input{
+    padding: 11px;
+    border-radius: 10px;
+    border: 1px solid #dedede;
+  }
+  #book input{
+    width: 80%;
+    width: 26em;
+    /*display: block;*/
+    margin-bottom: 7px;
+  }
+  input#fname{
+    width: 20em;
+  }
+  #book form .default-btn{
+    margin-top:3em;
+    display: block;
+  }
+  #book #close-btn{
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    font-family: Muli;
+    cursor: pointer;
+    color: #B3B3B3;
+  }
+  #book #close-btn:hover{
+    color: gray;
+  }
 
 
