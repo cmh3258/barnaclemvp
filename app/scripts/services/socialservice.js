@@ -51,6 +51,8 @@ angular.module('barnacleMvpApp')
       //create a deferred object using Angular's $q service
       var deferred = $q.defer();
       var newResults = [];
+      var past_month = new Date().getMonth();
+
 
       var promise = socialObjects.instagram.get('/v1/users/self/media/recent/').done(function(data) { //https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
           //when the data is retrieved resolved the deferred object
@@ -67,6 +69,7 @@ angular.module('barnacleMvpApp')
       //create a deferred object using Angular's $q service
       var deferred = $q.defer();
       var newResults = [];
+      var past_month = new Date().getMonth();
 
       var promise = socialObjects.twitter.get('/1.1/statuses/user_timeline.json').done(function(data) { //https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
           //when the data is retrieved resolved the deferred object
@@ -110,6 +113,7 @@ angular.module('barnacleMvpApp')
 
     function fbPosts(){
       var deferred = $q.defer();
+      var past_month = new Date().getMonth();
       
       console.log('need to get user-id for fb.');
       ///v2.6/{user-id}/photos HTTP/1.1
@@ -162,6 +166,9 @@ angular.module('barnacleMvpApp')
     function wordpressPosts(){
       var deferred = $q.defer();
 
+      var past_month = new Date().getMonth();
+      past_month = past_month -1 ;
+
       // var promise = socialObjects.wordpress.get('/v1.1/sites/pondersimple/posts/').done(function(data) { 
         // console.log(socialObjects.wordpress, socialObjects.wordpress.blog_id);
         var promise = socialObjects.wordpress.get('/rest/v1/me/').done(function(data) { 
@@ -172,45 +179,44 @@ angular.module('barnacleMvpApp')
             if('posts' in data){
               var posts = data.posts;
               for(var i = 0; i < posts.length; i++){
+
                 var post = posts[i];
-                var image = '';
-                var hashtags = [];
-                if('featured_image' in post){
-                  image = post.featured_image;
-                }
-                if('tags' in post){
-                  for(var key in post.tags){
-                    hashtags.push(key);
+                var post_date = new Date(post.date);
+                if(post_date.getMonth() === past_month){
+                  var image = '';
+                  var hashtags = [];
+                  if('featured_image' in post){
+                    image = post.featured_image;
                   }
+                  if('tags' in post){
+                    for(var key in post.tags){
+                      hashtags.push(key);
+                    }
+                  }
+                  // if('attachments' in post){
+                  //   console.log('attachments: ', post.attachments);
+                  //   //grab first image in attachments
+                  //   for(var key in post.attachments){
+                  //     image = post.attachments.key.URL;
+                  //     break;
+                  //   }
+                  // }
+                  console.log('added.');
+                  newResults.push({
+                    'source':'wordpress',
+                    'text':post.content,
+                    'title':post.title,
+                    'created_at':post.date,
+                    'image':image,
+                    'hashtags':hashtags,
+                    'isIncluded':true,
+                    'postType':'wordpressContainer'
+                  })
                 }
-                // if('attachments' in post){
-                //   console.log('attachments: ', post.attachments);
-                //   //grab first image in attachments
-                //   for(var key in post.attachments){
-                //     image = post.attachments.key.URL;
-                //     break;
-                //   }
-                // }
-                newResults.push({
-                  'source':'wordpress',
-                  'text':post.content,
-                  'title':post.title,
-                  'created_at':post.date,
-                  'image':image,
-                  'hashtags':hashtags,
-                  'isIncluded':true,
-                  'postType':'wordpressContainer'
-                })
               }
-
               deferred.resolve(newResults);
-
             }
-
-
             deferred.resolve(null);
-
-
           })
         })
 
@@ -282,9 +288,13 @@ angular.module('barnacleMvpApp')
 
         $q.all(data)
          .then(function (responses) {
-          // console.log(responses);
+            data = [];
+            console.log(responses);
             for(var i = 0; i < responses.length; i++){
               data = data.concat(responses[i]);
+              // responses.then(function(r){
+              //   console.log('hi: ', r);
+              // })
             }
             console.log('resolving: ', data);
             deferred.resolve(data);

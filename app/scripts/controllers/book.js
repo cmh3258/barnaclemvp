@@ -66,6 +66,8 @@ angular.module('barnacleMvpApp')
 
     $scope.submitOrder = function(order){
       console.log('submitting order: ', order, reviewId);
+      order.price = 0;
+      order.is_complete = false;
 
       if(order === undefined){
         return false;

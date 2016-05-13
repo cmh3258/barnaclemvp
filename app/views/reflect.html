@@ -36,8 +36,7 @@
     <div ng-if="step == 2" id="previewReviews">
       <!-- <h3>coming soon...</h3> -->
       <div ng-repeat="rev in userData.reviews" ng-click="viewReview(rev.reviewId)">
-        {{rev.date | date:'short'}}
-        {{rev.title}}
+        <h4>{{rev.title}} <span>{{rev.date | date:'short'}}</span></h4>
       </div>
     </div>
     <div ng-if="step == 1">
@@ -50,7 +49,7 @@
         <button ng-if="hasOneConnected()" ng-click="loadTimeline()" class="default-btn">Load Timeline</button>
         <button ng-if="hasOneConnected() && canSave()" ng-click="saveTimeline()" class="default-btn">Save Timeline</button>
       </div>
-      <h3 ng-if="timeline.length > 0">Timeline</h3>
+      <h3 ng-if="timeline.length > 0">Timeline ({{timeline.length}})</h3>
       <div ng-repeat="post in timeline | orderBy: '-created_at'" class="postContainer">
         <div ng-class="post.source === 'twitter'? 'twitterContainer':''" ng-if="post.isIncluded">
 
