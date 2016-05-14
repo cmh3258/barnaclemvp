@@ -33,6 +33,8 @@ module.exports = function(config) {
       'bower_components/angularfire/dist/angularfire.js',
       'bower_components/oauthio-web/dist/oauth.min.js',
       'bower_components/angular-stripe-checkout/angular-stripe-checkout.js',
+      'bower_components/pdfmake/build/pdfmake.js',
+      'bower_components/pdfmake/build/vfs_fonts.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
