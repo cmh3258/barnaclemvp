@@ -8,7 +8,7 @@
  * Controller of the barnacleMvpApp
  */
 angular.module('barnacleMvpApp')
-  .controller('BookCtrl', function ($scope, $location, $routeParams, ReviewService, AccountService, OrderService) {
+  .controller('BookCtrl', function ($scope, $location, $routeParams, $http, ReviewService, AccountService, OrderService, $base64) {
   
     $scope.data = null;
     $scope.popUp = false;
@@ -62,12 +62,7 @@ angular.module('barnacleMvpApp')
 
     $scope.purchaseForm = function(show){
       // $scope.showForm = show;
-
-      console.log('$scope.data: ', $scope.data);
       var data = $scope.data;
-
-
-      
 
       var docDefinition = { 
         content: [
@@ -113,17 +108,18 @@ angular.module('barnacleMvpApp')
           })
         }
         if(post.image !== undefined){
-          console.log('post.image: ', post.image);
-          
-          // convertImgToBase64(post.image, function(base64Img){
-          //   console.log('IMAGE:',base64Img);
-          // })
+          console.log('ur: ', post.image);
+          // convertImgToDataURLviaCanvas(post.image);
+          getDataUri(post.image);
 
-          // var v = getBase64Image(post.image);
-          // console.log('v: ', v);
+          // var imageData=$base64.encode(post.image);
+          // console.log('imageData: ', imageData);
+          // imageData = "data:image/png;base64," + imageData
+
+          // var p = getBase64Image(post.image);
 
           // docDefinition.content.push({
-          //   image:'../../images/yeoman.png'
+          //   image:imageData
           // })
         }
         if(post.hashtags !== undefined){
@@ -135,15 +131,10 @@ angular.module('barnacleMvpApp')
 
       console.log('docDefinition: ', docDefinition);
 
-      // Usage
-getDataUri('https://ohmygoodies.files.wordpress.com/2016/03/unsplash-bible-kid.jpeg', function(dataUri) {
-    // Do whatever you'd like with the Data URI!
-    console.log('din! ', dataUri);
-});
 
 
       // open the PDF in a new window
-      pdfMake.createPdf(docDefinition).open();
+      // pdfMake.createPdf(docDefinition).open();
 
       // print the PDF (not working in this version, will be added back in a couple of days)
       // pdfMake.createPdf(docDefinition).print();
@@ -154,55 +145,64 @@ getDataUri('https://ohmygoodies.files.wordpress.com/2016/03/unsplash-bible-kid.j
 
     }
 
-function getBase64Image(imgElem) {
-// imgElem must be on the same server otherwise a cross-origin error will be thrown "SECURITY_ERR: DOM Exception 18"
-    var canvas = document.createElement("canvas");
-    canvas.width = imgElem.clientWidth;
-    canvas.height = imgElem.clientHeight;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(imgElem, 0, 0);
-    var dataURL = imgElem.toDataURL("image/png");
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-}
+    function getDataUri(url){
+      var data = {
+        'img_url':url
+      }
+      $http({
+        method: 'POST',
+        url: 'http://127.0.0.1:5000/transform',
+        data: data
+      }).then(function successCallback(response) {
+          console.log('g: ', response);
+        }, function errorCallback(response) {
+          console.log('b: ', response);
+        });
+
+    }
+
+    function convertImgToDataURLviaCanvas(url, callback){
+      var img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = function(){
+          var canvas = document.createElement('CANVAS');
+          var ctx = canvas.getContext('2d');
+          var dataURL;
+          canvas.height = this.height;
+          canvas.width = this.width;
+          ctx.drawImage(this, 0, 0);
+          dataURL = canvas.toDataURL();
+          // callback(dataURL);
+          console.log('dU: ', dataURL);
+          canvas = null; 
+      };
+      img.src = url;
+  }
 
 
-    function convertImgToBase64(url, callback, outputFormat){
-      console.log('converting...');
-    var img = new Image();
-    img.crossOrigin = 'Anonymous';
-    img.onload = function(){
-        var canvas = document.createElement('CANVAS');
-        var ctx = canvas.getContext('2d');
-        canvas.height = this.height;
-        canvas.width = this.width;
-        ctx.drawImage(this,0,0);
-        var dataURL = canvas.toDataURL(outputFormat || 'image/png');
-        callback(dataURL);
-        canvas = null; 
-    };
-    img.src = url;
-}
 
-function getDataUri(url, callback) {
-    var image = new Image();
-    image.setAttribute('crossOrigin', 'anonymous');
-    image.src = url;
 
-    image.onload = function () {
-        var canvas = document.createElement('canvas');
-        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+    /*function getDataUri(url, callback) {
+      var image = new Image();
 
-        canvas.getContext('2d').drawImage(this, 0, 0);
 
-        // Get raw image data
-        callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+      image.onload = function () {
+          var canvas = document.createElement('canvas');
+          canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+          canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
-        // ... or get as Data URI
-        callback(canvas.toDataURL('image/png'));
-    };
+          canvas.getContext('2d').drawImage(this, 0, 0);
 
-}
+          // Get raw image data
+          callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+
+          // ... or get as Data URI
+          callback(canvas.toDataURL('image/png'));
+      };
+
+      image.src = url;
+  }*/
+
 
 
 

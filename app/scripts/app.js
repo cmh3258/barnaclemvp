@@ -18,7 +18,8 @@ angular
     'ngTouch',
     'firebase',
     'oauthio',
-    'stripe.checkout'
+    'stripe.checkout',
+    'base64'
   ])
   .config(function ($routeProvider) {
     $routeProvider

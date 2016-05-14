@@ -201,7 +201,7 @@ angular.module('barnacleMvpApp')
                   //     break;
                   //   }
                   // }
-                  console.log('added.');
+                  console.log('added post: ', post);
                   newResults.push({
                     'source':'wordpress',
                     'text':post.content,

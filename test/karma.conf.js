@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/angular-stripe-checkout/angular-stripe-checkout.js',
       'bower_components/pdfmake/build/pdfmake.js',
       'bower_components/pdfmake/build/vfs_fonts.js',
+      'bower_components/angular-base64/angular-base64.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
